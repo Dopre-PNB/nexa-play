@@ -86,7 +86,7 @@ const QuestaoMissao = sequelize.define('QuestaoMissao', {
   id_missao: { type: DataTypes.INTEGER.UNSIGNED, allowNull: false },
   enunciado: { type: DataTypes.STRING(1000), allowNull: false },
   opcoes: { type: DataTypes.JSON, allowNull: false },
-  indice_resposta: { type: DataTypes.TINYINT.UNSIGNED, allowNull: false },
+  indice_resposta: { type: DataTypes.SMALLINT.UNSIGNED, allowNull: false },
   ordem_questao: { type: DataTypes.INTEGER.UNSIGNED, allowNull: false },
 }, {
   ...common, tableName: 'questoes_missao',

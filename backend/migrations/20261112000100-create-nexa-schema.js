@@ -15,13 +15,21 @@ const fk = (table, key, onDelete = 'RESTRICT') => ({
   onDelete,
 });
 
+async function createTableIfMissing(queryInterface, table, attributes) {
+  if (!(await queryInterface.tableExists(table))) {
+    await queryInterface.createTable(table, attributes);
+  }
+}
+
 async function addIndex(queryInterface, table, fields, options = {}) {
+  const indexes = await queryInterface.showIndex(table);
+  if (options.name && indexes.some((index) => index.name === options.name)) return;
   await queryInterface.addIndex(table, fields, options);
 }
 
 module.exports = {
   async up(queryInterface) {
-    await queryInterface.createTable('empresas', {
+    await createTableIfMissing(queryInterface, 'empresas', {
       id_empresa: { type: DataTypes.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true, allowNull: false },
       nome: { type: DataTypes.STRING(120), allowNull: false },
       descricao: { type: DataTypes.TEXT, allowNull: true },
@@ -30,7 +38,7 @@ module.exports = {
       ...timestamps(),
     });
 
-    await queryInterface.createTable('jogos', {
+    await createTableIfMissing(queryInterface, 'jogos', {
       id_jogo: { type: DataTypes.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true, allowNull: false },
       id_empresa: fk('empresas', 'id_empresa'),
       slug: { type: DataTypes.STRING(100), allowNull: false },
@@ -42,7 +50,7 @@ module.exports = {
       ...timestamps(),
     });
 
-    await queryInterface.createTable('usuarios', {
+    await createTableIfMissing(queryInterface, 'usuarios', {
       id_usuario: { type: DataTypes.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true, allowNull: false },
       nome_jogador: { type: DataTypes.STRING(40), allowNull: false },
       email: { type: DataTypes.STRING(254), allowNull: false },
@@ -54,7 +62,7 @@ module.exports = {
       ...timestamps(),
     });
 
-    await queryInterface.createTable('jornadas', {
+    await createTableIfMissing(queryInterface, 'jornadas', {
       id_jornada: { type: DataTypes.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true, allowNull: false },
       id_jogo: fk('jogos', 'id_jogo'),
       slug: { type: DataTypes.STRING(100), allowNull: false },
@@ -66,7 +74,7 @@ module.exports = {
       ...timestamps(),
     });
 
-    await queryInterface.createTable('missoes', {
+    await createTableIfMissing(queryInterface, 'missoes', {
       id_missao: { type: DataTypes.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true, allowNull: false },
       id_jornada: fk('jornadas', 'id_jornada'),
       slug: { type: DataTypes.STRING(100), allowNull: false },
@@ -81,17 +89,17 @@ module.exports = {
       ...timestamps(),
     });
 
-    await queryInterface.createTable('questoes_missao', {
+    await createTableIfMissing(queryInterface, 'questoes_missao', {
       id_questao: { type: DataTypes.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true, allowNull: false },
       id_missao: fk('missoes', 'id_missao', 'CASCADE'),
       enunciado: { type: DataTypes.STRING(1000), allowNull: false },
       opcoes: { type: DataTypes.JSON, allowNull: false },
-      indice_resposta: { type: DataTypes.TINYINT.UNSIGNED, allowNull: false },
+      indice_resposta: { type: DataTypes.SMALLINT.UNSIGNED, allowNull: false },
       ordem_questao: { type: DataTypes.INTEGER.UNSIGNED, allowNull: false },
       ...timestamps(),
     });
 
-    await queryInterface.createTable('progresso_usuarios', {
+    await createTableIfMissing(queryInterface, 'progresso_usuarios', {
       id_progresso: { type: DataTypes.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true, allowNull: false },
       id_usuario: fk('usuarios', 'id_usuario', 'CASCADE'),
       id_missao: fk('missoes', 'id_missao'),
@@ -102,7 +110,7 @@ module.exports = {
       ...timestamps(),
     });
 
-    await queryInterface.createTable('desafios', {
+    await createTableIfMissing(queryInterface, 'desafios', {
       id_desafio: { type: DataTypes.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true, allowNull: false },
       id_jogo: fk('jogos', 'id_jogo'),
       id_missao: fk('missoes', 'id_missao'),
@@ -116,7 +124,7 @@ module.exports = {
       ...timestamps(),
     });
 
-    await queryInterface.createTable('participacoes_desafio', {
+    await createTableIfMissing(queryInterface, 'participacoes_desafio', {
       id_participacao: { type: DataTypes.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true, allowNull: false },
       id_usuario: fk('usuarios', 'id_usuario', 'CASCADE'),
       id_desafio: fk('desafios', 'id_desafio', 'CASCADE'),
@@ -127,7 +135,7 @@ module.exports = {
       ...timestamps(),
     });
 
-    await queryInterface.createTable('niveis', {
+    await createTableIfMissing(queryInterface, 'niveis', {
       id_nivel: { type: DataTypes.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true, allowNull: false },
       numero_nivel: { type: DataTypes.INTEGER.UNSIGNED, allowNull: false },
       titulo: { type: DataTypes.STRING(80), allowNull: false },
@@ -135,7 +143,7 @@ module.exports = {
       ...timestamps(),
     });
 
-    await queryInterface.createTable('conquistas', {
+    await createTableIfMissing(queryInterface, 'conquistas', {
       id_conquista: { type: DataTypes.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true, allowNull: false },
       codigo: { type: DataTypes.STRING(100), allowNull: false },
       titulo: { type: DataTypes.STRING(100), allowNull: false },
@@ -147,14 +155,14 @@ module.exports = {
       ...timestamps(),
     });
 
-    await queryInterface.createTable('usuarios_conquistas', {
+    await createTableIfMissing(queryInterface, 'usuarios_conquistas', {
       id_usuario: { ...fk('usuarios', 'id_usuario', 'CASCADE'), primaryKey: true },
       id_conquista: { ...fk('conquistas', 'id_conquista', 'CASCADE'), primaryKey: true },
       conquistada_em: { type: DataTypes.DATE, allowNull: false },
       ...timestamps(),
     });
 
-    await queryInterface.createTable('conteudos', {
+    await createTableIfMissing(queryInterface, 'conteudos', {
       id_conteudo: { type: DataTypes.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true, allowNull: false },
       id_jogo: fk('jogos', 'id_jogo'),
       slug: { type: DataTypes.STRING(100), allowNull: false },
@@ -169,7 +177,7 @@ module.exports = {
       ...timestamps(),
     });
 
-    await queryInterface.createTable('compartilhamentos', {
+    await createTableIfMissing(queryInterface, 'compartilhamentos', {
       id_compartilhamento: { type: DataTypes.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true, allowNull: false },
       id_usuario: fk('usuarios', 'id_usuario', 'CASCADE'),
       id_conquista: fk('conquistas', 'id_conquista', 'CASCADE'),
