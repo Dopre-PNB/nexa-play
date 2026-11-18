@@ -28,6 +28,21 @@ function errorHandler(error, req, res, _next) {
     });
   }
 
+  // Os formulários HTML precisam de uma resposta legível para quem usa o site.
+  // A API JSON mantém o formato original para os demais clientes.
+  const formPage = req.method === 'POST' && {
+    '/api/forms/login': { href: '/login.html', title: 'Não foi possível entrar' },
+    '/api/forms/cadastro': { href: '/cadastro.html', title: 'Não foi possível criar a conta' },
+  }[req.originalUrl.split('?')[0]];
+  if (formPage) {
+    const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    })[char]);
+    return res.status(normalized.status).type('html').send(`<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${formPage.title} | Nexa Play</title><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/auth.css"></head>
+<body class="auth-page"><main class="auth-main"><div class="auth-content"><h1 class="auth-heading">${formPage.title}</h1><p class="auth-intro">${escapeHtml(normalized.message)}</p><a class="auth-nav-button" href="${formPage.href}">VOLTAR E TENTAR NOVAMENTE</a></div></main></body></html>`);
+  }
+
   const body = {
     erro: {
       codigo: normalized.code,

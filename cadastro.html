@@ -94,6 +94,7 @@
               type="email"
               placeholder="voce@email.com"
               autocomplete="email"
+              maxlength="254"
               required
             />
           </div>
@@ -106,6 +107,7 @@
                 placeholder="Mínimo de 8 caracteres"
                 autocomplete="new-password"
                 minlength="8"
+                maxlength="72"
                 required
               /><button
                 class="auth-password-display"
@@ -116,6 +118,19 @@
                 MOSTRAR
               </button>
             </div>
+          </div>
+          <div class="auth-field">
+            <label for="confirmar-senha">CONFIRME A SENHA</label>
+            <input
+              id="confirmar-senha"
+              name="confirmar_senha"
+              type="password"
+              placeholder="Digite a senha novamente"
+              autocomplete="new-password"
+              minlength="8"
+              maxlength="72"
+              required
+            />
           </div>
           <button class="auth-submit" type="submit">CRIAR CONTA</button>
         </form>

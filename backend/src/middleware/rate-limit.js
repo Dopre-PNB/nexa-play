@@ -1,4 +1,5 @@
 const { rateLimit } = require('express-rate-limit');
+const { AppError } = require('../utils/errors');
 
 function createAuthLimiter() {
   return rateLimit({
@@ -6,9 +7,9 @@ function createAuthLimiter() {
     limit: 20,
     standardHeaders: 'draft-8',
     legacyHeaders: false,
-    handler: (_req, res) => res.status(429).json({
-      erro: { codigo: 'RATE_LIMITED', mensagem: 'Muitas tentativas. Aguarde alguns minutos.' },
-    }),
+    handler: (_req, _res, next) => next(new AppError(
+      429, 'RATE_LIMITED', 'Muitas tentativas. Aguarde alguns minutos.',
+    )),
   });
 }
 
