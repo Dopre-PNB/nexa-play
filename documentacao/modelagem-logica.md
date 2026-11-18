@@ -1,0 +1,24 @@
+# Modelagem lógica — Nexa Play
+
+Baseada na migração `backend/migrations/20261112000100-create-nexa-schema.js`. PK = chave primária; FK = chave estrangeira; UQ = único. Todos os campos são obrigatórios salvo indicação `?`. `texto(n)` representa texto de até n caracteres; `data` representa data e hora. IDs são inteiros autoincrementais, exceto os da tabela associativa `usuarios_conquistas`. Todas as tabelas incluem `criado_em` e `atualizado_em` obrigatórios.
+
+| Tabela | Campos além de `criado_em` e `atualizado_em` | Restrições |
+|---|---|---|
+| `empresas` | `id_empresa` inteiro PK; `nome` texto(120); `descricao` texto?; `ano_fundacao` inteiro pequeno?; `slogan` texto(240)? | — |
+| `jogos` | `id_jogo` inteiro PK; `id_empresa` inteiro FK; `slug` texto(100); `nome` texto(120); `descricao` texto?; `genero` texto(80)?; `plataforma` texto(120)?; `status` enum | FK → `empresas.id_empresa`; UQ `slug`; status: ativo/inativo. |
+| `usuarios` | `id_usuario` inteiro PK; `nome_jogador` texto(40); `email` texto(254); `senha_hash` texto(100); `papel` enum; `status` enum; `token_version` inteiro; `excluido_em` data? | UQ `email`; papel: jogador/admin; status: ativo/suspenso. Senhas são armazenadas como hash. |
+| `jornadas` | `id_jornada` inteiro PK; `id_jogo` inteiro FK; `slug` texto(100); `titulo` texto(120); `descricao` texto?; `ordem_jornada` inteiro; `nivel_minimo` inteiro; `status` enum | FK → `jogos.id_jogo`; UQ (`id_jogo`, `slug`); status: rascunho/publicada/arquivada. |
+| `missoes` | `id_missao` inteiro PK; `id_jornada` inteiro FK; `slug` texto(100); `titulo` texto(120); `descricao` texto?; `ordem_missao` inteiro; `tipo` enum; `nota_minima` decimal(5,2); `xp_recompensa` inteiro; `nivel_minimo` inteiro; `status` enum | FK → `jornadas.id_jornada`; UQ (`id_jornada`, `slug`); tipo: quiz/confirmacao; status: rascunho/publicada/arquivada. |
+| `questoes_missao` | `id_questao` inteiro PK; `id_missao` inteiro FK; `enunciado` texto(1000); `opcoes` JSON; `indice_resposta` inteiro pequeno; `ordem_questao` inteiro | FK → `missoes.id_missao`; UQ (`id_missao`, `ordem_questao`). |
+| `progresso_usuarios` | `id_progresso` inteiro PK; `id_usuario` inteiro FK; `id_missao` inteiro FK; `status` enum; `iniciada_em` data; `concluida_em` data?; `xp_obtido` inteiro | FK → `usuarios.id_usuario`, `missoes.id_missao`; UQ (`id_usuario`, `id_missao`); status: iniciada/concluida. |
+| `desafios` | `id_desafio` inteiro PK; `id_jogo` inteiro FK; `id_missao` inteiro FK; `slug` texto(100); `titulo` texto(120); `descricao` texto?; `xp_bonus` inteiro; `inicia_em` data; `termina_em` data; `status` enum | FK → `jogos.id_jogo`, `missoes.id_missao`; UQ (`id_jogo`, `slug`); status: rascunho/ativo/encerrado. |
+| `participacoes_desafio` | `id_participacao` inteiro PK; `id_usuario` inteiro FK; `id_desafio` inteiro FK; `status` enum; `iniciada_em` data; `concluida_em` data?; `xp_obtido` inteiro | FK → `usuarios.id_usuario`, `desafios.id_desafio`; UQ (`id_usuario`, `id_desafio`); status: iniciada/concluida. |
+| `niveis` | `id_nivel` inteiro PK; `numero_nivel` inteiro; `titulo` texto(80); `xp_minimo` inteiro | UQ `numero_nivel`; UQ `xp_minimo`. |
+| `conquistas` | `id_conquista` inteiro PK; `codigo` texto(100); `titulo` texto(100); `descricao` texto(500); `criterio` enum; `meta` inteiro; `icone` texto(500)?; `status` enum | UQ `codigo`; critério: missoes_concluidas/jornadas_concluidas/desafios_concluidos/xp_total; status: ativo/inativo. |
+| `usuarios_conquistas` | `id_usuario` inteiro PK/FK; `id_conquista` inteiro PK/FK; `conquistada_em` data | PK composta (`id_usuario`, `id_conquista`); FK → `usuarios.id_usuario`, `conquistas.id_conquista`. |
+| `conteudos` | `id_conteudo` inteiro PK; `id_jogo` inteiro FK; `slug` texto(100); `titulo` texto(120); `resumo` texto(500)?; `tipo` enum; `corpo` texto?; `url` texto(2000)?; `nivel_minimo` inteiro; `xp_minimo` inteiro; `status` enum | FK → `jogos.id_jogo`; UQ (`id_jogo`, `slug`); tipo: artigo/video/bonus; status: ativo/inativo. |
+| `compartilhamentos` | `id_compartilhamento` inteiro PK; `id_usuario` inteiro FK; `id_conquista` inteiro FK; `token` texto(64); `expira_em` data?; `revogado_em` data? | FK → `usuarios.id_usuario`, `conquistas.id_conquista`; UQ `token`. |
+
+Todas as chaves estrangeiras usam atualização em cascata. A exclusão é em cascata nas referências de questões para missões, progresso para usuários, participações para usuários e desafios, usuários-conquistas para usuários e conquistas, e compartilhamentos para usuários e conquistas. As demais usam restrição de exclusão. Outros índices não únicos são definidos na migração.
+
+Os tipos são descritos de forma lógica: o PostgreSQL do Render usa `integer` e `smallint` com sinal, enquanto o MySQL aceita os modificadores `UNSIGNED` usados pelo Sequelize. As regras de negócio e de validação da API continuam necessárias. O Sequelize mantém também a tabela técnica `SequelizeMeta` para controle de migrações.
