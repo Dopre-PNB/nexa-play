@@ -1,0 +1,639 @@
+/* Páginas institucionais e apresentação do jogo. */
+.about-page .site-header,
+.game-page .site-header,
+.about-page .site-footer,
+.game-page .site-footer {
+  background: #06111a;
+}
+.about-hero,
+.game-hero {
+  padding: 80px 0;
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+}
+.about-hero .hero-grid,
+.game-hero .hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.about-hero h1,
+.game-hero h1 {
+  margin: 24px 0 26px;
+  line-height: 1.17;
+}
+.about-hero .hero-art,
+.game-hero .hero-art {
+  width: 100%;
+  min-width: 0;
+}
+.about-hero .hero-art img,
+.game-hero .hero-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.about-subtitle,
+.game-subtitle {
+  font-size: 24px;
+  line-height: 1.35;
+  font-weight: 900;
+  color: #f7571d;
+  margin: 0 0 22px;
+}
+.about-hero .lead,
+.game-hero .lead {
+  font-size: 20px;
+  line-height: 1.55;
+  margin: 0 0 24px;
+}
+.about-hero .actions {
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.about-services {
+  padding: 88px 0;
+}
+.about-centered {
+  text-align: center;
+}
+.about-centered .eyebrow {
+  display: block;
+  margin-bottom: 16px;
+}
+.about-centered h2 {
+  margin: 0 0 16px;
+  line-height: 1.25;
+}
+.about-centered > p {
+  max-width: 850px;
+  margin: 0 auto;
+  color: #aeb3d5;
+  font-size: 18px;
+  line-height: 1.6;
+}
+.about-services .grid-3,
+.game-how .grid-3 {
+  margin-top: 48px;
+}
+.about-service,
+.game-how .card {
+  background: #0a1a25;
+  border-color: #1c3748;
+  padding: 24px;
+  box-shadow: 0 4px 0 #020915;
+}
+.about-service h3,
+.game-how h3 {
+  margin: 16px 0 12px;
+}
+.about-service p,
+.about-step p,
+.game-how .card p {
+  margin: 0;
+  color: #9eb7c8;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.about-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background: #06374e;
+  border-radius: 18px;
+  color: #38a0d2;
+}
+.about-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.about-icon .about-fill {
+  fill: currentColor;
+  stroke: none;
+}
+.about-icon-orange {
+  color: #f7571d;
+}
+.about-product {
+  padding: 96px 0;
+}
+.about-product-top {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 86px;
+  padding: 0 70px;
+}
+.about-product-copy h2 {
+  margin: 24px 0;
+  font-size: 44px;
+  line-height: 1.3;
+}
+.about-product-copy p {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.55;
+  color: #aeb3d5;
+  margin: 0 0 24px;
+}
+.about-missions {
+  display: grid;
+  gap: 16px;
+}
+.about-mission {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  background: #13143a;
+  border: 2px solid #262a6b;
+  border-radius: 22px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 0 #020410;
+}
+.about-mission .about-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+}
+.about-mission .about-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.about-mission-content {
+  flex: 1;
+  min-width: 0;
+}
+.about-mission h3 {
+  font-size: 16px;
+  line-height: 1.3;
+  margin: 0 0 9px;
+  font-weight: 900;
+}
+.about-progress {
+  height: 10px;
+  border-radius: 20px;
+  background: #1b3546;
+  overflow: hidden;
+}
+.about-progress span {
+  display: block;
+  width: 60%;
+  height: 100%;
+  background: #0785be;
+}
+.about-progress.complete span {
+  width: 100%;
+}
+.about-xp {
+  border-radius: 24px;
+  padding: 4px 12px;
+  background: #06374e;
+  color: #38a0d2;
+  font-size: 14px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+.about-check {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #0785be;
+  font-weight: 900;
+  font-size: 24px;
+}
+.about-steps {
+  margin-top: 62px;
+}
+.about-steps > .eyebrow {
+  display: block;
+  text-align: center;
+  margin-bottom: 26px;
+}
+.about-step-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+.about-step {
+  padding: 20px;
+  border: 2px solid #262a6b;
+  border-radius: 22px;
+  background: #13143a;
+  box-shadow: 0 4px 0 #020410;
+}
+.about-step .about-icon {
+  height: 52px;
+  width: 52px;
+  background: #262779;
+  border-radius: 16px;
+}
+.about-step h3 {
+  font-size: 20px;
+  margin: 14px 0 12px;
+}
+.about-step p {
+  font-size: 14px;
+  color: #aeb3d5;
+}
+.about-essence {
+  padding: 90px 0;
+  background: #2e3192;
+  text-align: center;
+}
+.about-essence .eyebrow {
+  color: #c7cbed;
+}
+.about-essence h2 {
+  font-size: 46px;
+  line-height: 1.25;
+  margin: 28px 0;
+}
+.about-essence h3 {
+  font-size: 26px;
+  margin: 0 0 24px;
+}
+.about-essence p {
+  font-size: 18px;
+  font-weight: 700;
+  color: #d5d8f4;
+  line-height: 1.5;
+  margin: 22px auto;
+}
+.about-equation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.about-equation .pill {
+  background: #06374e;
+  color: #38a0d2;
+}
+.about-equation b {
+  font-size: 24px;
+  color: #d5d8f4;
+}
+.about-essence .actions {
+  justify-content: center;
+  margin-top: 24px;
+  gap: 16px;
+}
+.game-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.game-tags .pill,
+.game-hero > .pill {
+  background: #06374e;
+  color: #38a0d2;
+}
+.game-story {
+  padding: 88px 0;
+}
+.game-story-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 64px;
+  align-items: center;
+}
+.game-story-copy h2 {
+  font-size: 40px;
+  line-height: 1.35;
+  max-width: 410px;
+  margin: 22px 0;
+}
+.game-story-copy p {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.55;
+  color: #aeb3d5;
+  max-width: 410px;
+  margin: 0;
+}
+.game-story-list {
+  display: grid;
+  gap: 16px;
+}
+.game-story-item {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  border: 2px solid #262a6b;
+  border-radius: 22px;
+  background: #13143a;
+  padding: 20px;
+  box-shadow: 0 4px 0 #020410;
+}
+.game-story-item .about-icon {
+  width: 52px;
+  height: 52px;
+  background: #262779;
+  border-radius: 16px;
+}
+.game-story-item h3 {
+  font-size: 19px;
+  margin: 0 0 8px;
+}
+.game-story-item p {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #aeb3d5;
+  margin: 0;
+}
+.game-how,
+.game-realms,
+.game-goal {
+  padding: 88px 0;
+}
+.game-how .card {
+  padding: 24px;
+}
+.game-realms-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.game-realm {
+  padding: 20px;
+  border: 2px solid #262a6b;
+  border-radius: 22px;
+  background: #13143a;
+  box-shadow: 0 4px 0 #020410;
+}
+.game-realm .about-icon {
+  height: 52px;
+  width: 52px;
+  background: #262779;
+  border-radius: 16px;
+  color: #f7571d;
+}
+.game-realm h3 {
+  font-size: 20px;
+  margin: 16px 0 12px;
+  line-height: 1.3;
+}
+.game-realm p {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #aeb3d5;
+  margin: 0;
+}
+.game-realm-final {
+  background: #2e3192;
+}
+.game-realm-final .about-icon {
+  background: #f7571d;
+  color: #fff;
+}
+.game-realm-final p {
+  color: #e0e2f7;
+}
+.game-goal .grid-3 {
+  margin-top: 48px;
+}
+.game-goal-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  border: 2px solid #262a6b;
+  border-radius: 22px;
+  background: #13143a;
+  box-shadow: 0 4px 0 #020410;
+}
+.game-goal-card .about-icon {
+  height: 52px;
+  width: 52px;
+  border-radius: 16px;
+  background: #262779;
+}
+.game-goal-card h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 0 0 8px;
+}
+.game-goal-card p {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #aeb3d5;
+  margin: 0;
+}
+.game-cta {
+  padding: 72px 0;
+  background: #2e3192;
+}
+.game-cta .cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.game-cta h2 {
+  margin: 0 0 12px;
+  font-size: 44px;
+  line-height: 1.3;
+}
+.game-cta p {
+  margin: 0;
+  color: #d5d8f4;
+  font-size: 20px;
+}
+.about-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+@media (max-width: 1100px) {
+  .about-hero .hero-grid,
+  .game-hero .hero-grid {
+    gap: 30px;
+  }
+  .about-hero h1,
+  .game-hero h1 {
+    font-size: 46px;
+  }
+  .about-product-top {
+    padding: 0;
+    gap: 48px;
+  }
+  .about-step {
+    padding: 16px;
+  }
+  .about-step h3 {
+    font-size: 18px;
+  }
+  .game-realms-grid {
+    gap: 16px;
+  }
+  .game-story-grid {
+    gap: 40px;
+  }
+}
+@media (max-width: 800px) {
+  .about-hero,
+  .game-hero {
+    padding: 56px 0;
+    min-height: 0;
+  }
+  .about-hero .hero-grid,
+  .game-hero .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .about-hero .hero-content,
+  .game-hero .hero-content {
+    max-width: 600px;
+  }
+  .about-hero .hero-art,
+  .game-hero .hero-art {
+    max-width: 560px;
+    margin: auto;
+  }
+  .about-hero h1,
+  .game-hero h1 {
+    font-size: 44px;
+  }
+  .about-product-top,
+  .game-story-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .about-missions {
+    max-width: 540px;
+  }
+  .about-step-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .game-realms-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .about-essence h2 {
+    font-size: 38px;
+  }
+  .game-cta h2 {
+    font-size: 36px;
+  }
+  .game-cta .cta-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .game-story-copy h2,
+  .game-story-copy p {
+    max-width: 100%;
+  }
+}
+@media (max-width: 540px) {
+  .about-hero h1,
+  .game-hero h1 {
+    font-size: 36px;
+  }
+  .about-subtitle,
+  .game-subtitle {
+    font-size: 21px;
+  }
+  .about-hero .lead,
+  .game-hero .lead,
+  .about-product-copy p {
+    font-size: 17px;
+  }
+  .about-hero .actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .about-services,
+  .about-product,
+  .game-story,
+  .game-how,
+  .game-realms,
+  .game-goal {
+    padding: 58px 0;
+  }
+  .about-product-copy h2,
+  .game-story-copy h2 {
+    font-size: 32px;
+  }
+  .about-step-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .about-steps {
+    margin-top: 46px;
+  }
+  .about-step:last-child {
+    grid-column: 1/-1;
+  }
+  .about-essence {
+    padding: 64px 0;
+  }
+  .about-essence h2 {
+    font-size: 32px;
+  }
+  .about-essence h3 {
+    font-size: 22px;
+  }
+  .about-essence .actions {
+    flex-direction: column;
+  }
+  .game-realm {
+    padding: 16px;
+  }
+  .game-realm h3 {
+    font-size: 17px;
+  }
+  .game-realms-grid {
+    gap: 14px;
+  }
+  .game-story-item {
+    gap: 14px;
+    padding: 16px;
+  }
+  .game-story-item p {
+    font-size: 14px;
+  }
+  .game-story-item h3 {
+    font-size: 18px;
+  }
+  .about-mission {
+    gap: 10px;
+    padding: 12px;
+  }
+  .about-mission h3 {
+    font-size: 14px;
+  }
+  .about-xp {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  .about-mission .about-icon {
+    width: 42px;
+    height: 42px;
+  }
+  .game-cta {
+    padding: 56px 0;
+  }
+  .game-cta h2 {
+    font-size: 32px;
+  }
+  .game-cta p {
+    font-size: 17px;
+  }
+}

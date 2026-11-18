@@ -1,0 +1,460 @@
+openapi: 3.0.3
+info:
+  title: Nexa Play API
+  version: 1.0.0
+  description: API REST para contas, catálogo, missões, progresso e gamificação do Nexa Play.
+servers:
+  - url: /api
+tags:
+  - name: Saúde
+  - name: Autenticação
+  - name: Catálogo
+  - name: Progresso
+  - name: Compartilhamentos
+  - name: Administração
+paths:
+  /health:
+    get:
+      tags: [Saúde]
+      summary: Verifica a conexão com a API e o MySQL
+      responses:
+        '200':
+          description: Serviço disponível
+  /usuarios:
+    post:
+      tags: [Autenticação]
+      summary: Cria uma conta de jogador
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cadastro'
+      responses:
+        '201': { description: Conta criada e sessão iniciada }
+        '400': { $ref: '#/components/responses/Erro' }
+        '409': { $ref: '#/components/responses/Erro' }
+  /auth/login:
+    post:
+      tags: [Autenticação]
+      summary: Inicia uma sessão
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '200': { description: Sessão iniciada; token em cookie HttpOnly }
+        '401': { $ref: '#/components/responses/Erro' }
+  /auth/logout:
+    post:
+      tags: [Autenticação]
+      summary: Encerra a sessão atual
+      responses:
+        '204': { description: Sessão encerrada }
+  /auth/me:
+    get:
+      tags: [Autenticação]
+      summary: Retorna o perfil e os indicadores do jogador
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      responses:
+        '200': { description: Perfil do jogador }
+        '401': { $ref: '#/components/responses/Erro' }
+  /usuarios/me:
+    patch:
+      tags: [Autenticação]
+      summary: Atualiza nome, e-mail ou senha do jogador autenticado
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome_jogador: { type: string, minLength: 2, maxLength: 40 }
+                email: { type: string, format: email }
+                senha_atual: { type: string }
+                nova_senha: { type: string, minLength: 8 }
+      responses:
+        '200': { description: Perfil atualizado }
+        '401': { $ref: '#/components/responses/Erro' }
+  /usuarios/me/progresso:
+    get:
+      tags: [Progresso]
+      summary: Mostra jornadas, missões e estado de conclusão do jogador
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      responses:
+        '200': { description: Progresso organizado por jornada }
+  /usuarios/me/conquistas:
+    get:
+      tags: [Progresso]
+      summary: Lista as conquistas desbloqueadas pelo jogador
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      responses:
+        '200': { description: Conquistas do jogador }
+  /empresas:
+    get:
+      tags: [Catálogo]
+      summary: Lista empresas
+      parameters: [{ $ref: '#/components/parameters/Pagina' }, { $ref: '#/components/parameters/Limite' }]
+      responses: { '200': { description: Empresas encontradas } }
+  /empresas/{id}:
+    get:
+      tags: [Catálogo]
+      summary: Consulta uma empresa
+      parameters: [{ $ref: '#/components/parameters/Id' }]
+      responses: { '200': { description: Empresa encontrada } }
+  /jogos:
+    get:
+      tags: [Catálogo]
+      summary: Lista jogos ativos
+      parameters: [{ $ref: '#/components/parameters/Pagina' }, { $ref: '#/components/parameters/Limite' }]
+      responses: { '200': { description: Jogos encontrados } }
+  /jogos/{id}:
+    get:
+      tags: [Catálogo]
+      summary: Consulta um jogo ativo
+      parameters: [{ $ref: '#/components/parameters/Id' }]
+      responses: { '200': { description: Jogo encontrado } }
+  /jornadas:
+    get:
+      tags: [Catálogo]
+      summary: Lista jornadas publicadas de jogos ativos
+      parameters: [{ $ref: '#/components/parameters/Pagina' }, { $ref: '#/components/parameters/Limite' }]
+      responses: { '200': { description: Jornadas encontradas } }
+  /jornadas/{id}:
+    get:
+      tags: [Catálogo]
+      summary: Consulta uma jornada publicada
+      parameters: [{ $ref: '#/components/parameters/Id' }]
+      responses: { '200': { description: Jornada encontrada } }
+  /missoes:
+    get:
+      tags: [Catálogo]
+      summary: Lista missões publicadas em jornadas abertas
+      parameters: [{ $ref: '#/components/parameters/Pagina' }, { $ref: '#/components/parameters/Limite' }]
+      responses: { '200': { description: Missões encontradas } }
+  /missoes/{id}:
+    get:
+      tags: [Catálogo]
+      summary: Consulta uma missão publicada
+      parameters: [{ $ref: '#/components/parameters/Id' }]
+      responses: { '200': { description: Missão encontrada } }
+  /desafios:
+    get:
+      tags: [Catálogo]
+      summary: Lista desafios ativos dentro do período de validade
+      parameters: [{ $ref: '#/components/parameters/Pagina' }, { $ref: '#/components/parameters/Limite' }]
+      responses: { '200': { description: Desafios encontrados } }
+  /desafios/{id}:
+    get:
+      tags: [Catálogo]
+      summary: Consulta um desafio ativo
+      parameters: [{ $ref: '#/components/parameters/Id' }]
+      responses: { '200': { description: Desafio encontrado } }
+  /niveis:
+    get:
+      tags: [Catálogo]
+      summary: Lista os níveis e seus limites de XP
+      parameters: [{ $ref: '#/components/parameters/Pagina' }, { $ref: '#/components/parameters/Limite' }]
+      responses: { '200': { description: Níveis encontrados } }
+  /niveis/{id}:
+    get:
+      tags: [Catálogo]
+      summary: Consulta um nível
+      parameters: [{ $ref: '#/components/parameters/Id' }]
+      responses: { '200': { description: Nível encontrado } }
+  /conquistas:
+    get:
+      tags: [Catálogo]
+      summary: Lista conquistas ativas
+      parameters: [{ $ref: '#/components/parameters/Pagina' }, { $ref: '#/components/parameters/Limite' }]
+      responses: { '200': { description: Conquistas encontradas } }
+  /conquistas/{id}:
+    get:
+      tags: [Catálogo]
+      summary: Consulta uma conquista ativa
+      parameters: [{ $ref: '#/components/parameters/Id' }]
+      responses: { '200': { description: Conquista encontrada } }
+  /jornadas/{id}/missoes:
+    get:
+      tags: [Catálogo]
+      summary: Lista as missões públicas de uma jornada
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': { description: Missões em ordem de apresentação }
+  /missoes/{id}/questoes:
+    get:
+      tags: [Progresso]
+      summary: Retorna as questões após o jogador iniciar a missão
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': { description: Questões sem os índices das respostas corretas }
+        '403': { $ref: '#/components/responses/Erro' }
+  /missoes/{id}/iniciar:
+    post:
+      tags: [Progresso]
+      summary: Inicia uma missão desbloqueada
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '201': { description: Progresso criado ou retornado }
+  /missoes/{id}/concluir:
+    post:
+      tags: [Progresso]
+      summary: Conclui uma missão, valida respostas e concede XP
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: object
+                  required: [tipo, respostas]
+                  properties:
+                    tipo: { type: string, enum: [quiz] }
+                    respostas:
+                      type: array
+                      items:
+                        type: object
+                        required: [id_questao, indice_opcao]
+                        properties:
+                          id_questao: { type: integer }
+                          indice_opcao: { type: integer, minimum: 0 }
+                - type: object
+                  required: [tipo, confirmada]
+                  properties:
+                    tipo: { type: string, enum: [confirmacao] }
+                    confirmada: { type: boolean, enum: [true] }
+      responses:
+        '200': { description: Resultado, XP e novas conquistas }
+        '422': { $ref: '#/components/responses/Erro' }
+  /desafios/{id}/iniciar:
+    post:
+      tags: [Progresso]
+      summary: Inicia um desafio dentro do período de validade
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '201': { description: Participação registrada }
+  /desafios/{id}/concluir:
+    post:
+      tags: [Progresso]
+      summary: Finaliza o desafio após concluir a missão vinculada
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': { description: Bônus de XP concedido }
+  /conteudos:
+    get:
+      tags: [Progresso]
+      summary: Lista conteúdos e informa quais estão desbloqueados para o jogador
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      responses:
+        '200': { description: Conteúdo bloqueado não inclui corpo nem URL }
+  /conquistas/{id}/compartilhar:
+    post:
+      tags: [Compartilhamentos]
+      summary: Cria um link público para uma conquista obtida
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '201': { description: URL de compartilhamento }
+  /compartilhamentos/{token}:
+    get:
+      tags: [Compartilhamentos]
+      summary: Consulta uma conquista compartilhada publicamente
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema: { type: string, minLength: 48, maxLength: 48 }
+      responses:
+        '200': { description: Dados públicos da conquista }
+        '404': { $ref: '#/components/responses/Erro' }
+  /compartilhamentos/{id}:
+    delete:
+      tags: [Compartilhamentos]
+      summary: Revoga um link de compartilhamento próprio
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200': { description: Link revogado }
+  /admin/{recurso}:
+    parameters:
+      - name: recurso
+        in: path
+        required: true
+        schema:
+          type: string
+          enum: [empresas, jogos, jornadas, missoes, desafios, niveis, conquistas, conteudos, usuarios]
+    get:
+      tags: [Administração]
+      summary: Lista registros administrativos com paginação
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      responses:
+        '200': { description: Registros encontrados }
+        '403': { $ref: '#/components/responses/Erro' }
+    post:
+      tags: [Administração]
+      summary: Cria um registro de catálogo (ou usuário em /admin/usuarios)
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object }
+      responses:
+        '201': { description: Registro criado }
+  /admin/{recurso}/{id}:
+    parameters:
+      - name: recurso
+        in: path
+        required: true
+        schema: { type: string }
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [Administração]
+      summary: Consulta um registro administrativo
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      responses:
+        '200': { description: Registro encontrado }
+    patch:
+      tags: [Administração]
+      summary: Atualiza um registro administrativo
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object }
+      responses:
+        '200': { description: Registro atualizado }
+    delete:
+      tags: [Administração]
+      summary: Remove um registro administrativo
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      responses:
+        '204': { description: Registro removido }
+  /admin/missoes/{id}/questoes:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [Administração]
+      summary: Lista as questões de uma missão
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      responses:
+        '200': { description: Questões com os índices corretos disponíveis para administração }
+    post:
+      tags: [Administração]
+      summary: Adiciona uma questão ao quiz
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [enunciado, opcoes, indice_resposta, ordem_questao]
+              properties:
+                enunciado: { type: string, maxLength: 1000 }
+                opcoes: { type: array, minItems: 2, maxItems: 6, items: { type: string, maxLength: 300 } }
+                indice_resposta: { type: integer, minimum: 0, maximum: 5 }
+                ordem_questao: { type: integer, minimum: 1, maximum: 100 }
+      responses:
+        '201': { description: Questão criada }
+  /admin/questoes/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    patch:
+      tags: [Administração]
+      summary: Atualiza uma questão
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object }
+      responses:
+        '200': { description: Questão atualizada }
+    delete:
+      tags: [Administração]
+      summary: Remove uma questão
+      security: [{ sessao: [] }, { bearerAuth: [] }]
+      responses:
+        '204': { description: Questão removida }
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema: { type: integer, minimum: 1 }
+    Catalogo:
+      name: catalogo
+      in: path
+      required: true
+      schema:
+        type: string
+        enum: [empresas, jogos, jornadas, missoes, desafios, niveis, conquistas]
+    Pagina:
+      name: pagina
+      in: query
+      schema: { type: integer, minimum: 1, default: 1 }
+    Limite:
+      name: limite
+      in: query
+      schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+  responses:
+    Erro:
+      description: Erro com identificador da requisição
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erro'
+  schemas:
+    Cadastro:
+      type: object
+      required: [nome_jogador, email, senha]
+      properties:
+        nome_jogador: { type: string, minLength: 2, maxLength: 40 }
+        email: { type: string, format: email }
+        senha: { type: string, minLength: 8, maxLength: 72 }
+    Login:
+      type: object
+      required: [email, senha]
+      properties:
+        email: { type: string, format: email }
+        senha: { type: string, minLength: 1, maxLength: 72 }
+    Erro:
+      type: object
+      properties:
+        erro:
+          type: object
+          properties:
+            codigo: { type: string }
+            mensagem: { type: string }
+            detalhes: { type: array, items: { type: object } }
+        request_id: { type: string, format: uuid }
+  securitySchemes:
+    sessao:
+      type: apiKey
+      in: cookie
+      name: nexa_session
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: nexa-play-api
+    runtime: node
+    plan: free
+    region: virginia
+    buildCommand: cd backend && npm ci
+    startCommand: cd backend && npm run start:render
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_DIALECT
+        value: postgres
+      - key: DB_SSL
+        value: "false"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nexa-play-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+
+databases:
+  - name: nexa-play-db
+    databaseName: nexa_play
+    user: nexa_play_user
+    plan: free
+    region: virginia
