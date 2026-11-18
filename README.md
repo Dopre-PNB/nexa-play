@@ -3,7 +3,7 @@
 O Nexa Play é um projeto de jogos e experiências digitais. Seu primeiro projeto, o **Nexa Quest**, é apresentado no site por meio de páginas institucionais, cadastro e acesso de usuários. Esta entrega reúne o front-end, uma API REST e a estrutura de banco de dados necessária para uma demonstração do sistema.
 
 - **Site publicado:** [nexa-play-api-7ida.onrender.com](https://nexa-play-api-7ida.onrender.com)
-- **Repositório:** [github.com/Dopre-PNB/nexa-play](https://github.com/Dopre-PNB/nexa-play) — privado; é necessário ter acesso autorizado.
+- **Repositório:** [github.com/Dopre-PNB/nexa-play](https://github.com/Dopre-PNB/nexa-play).
 - **Documentação da API:** [nexa-play-api-7ida.onrender.com/api/docs](https://nexa-play-api-7ida.onrender.com/api/docs)
 - **Estado da API e do banco:** [nexa-play-api-7ida.onrender.com/api/health](https://nexa-play-api-7ida.onrender.com/api/health)
 

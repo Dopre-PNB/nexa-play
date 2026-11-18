@@ -4,7 +4,7 @@ Estas instruções iniciam o site e a API na mesma origem. Os exemplos são para
 
 ## 1. Obter os arquivos
 
-Clone o repositório com uma conta que tenha acesso a ele ou obtenha uma cópia do projeto. No terminal, entre na pasta do projeto e execute:
+Clone o repositório público ou obtenha uma cópia do projeto. No terminal, entre na pasta do projeto e execute:
 
 ```powershell
 cd backend
