@@ -1,67 +1,142 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Entre na sua conta Nexa Play." />
-    <meta name="theme-color" content="#fffafd" />
+    <meta
+      name="description"
+      content="Entre na Nexa Play e continue suas missões e conquistas no Nexa Quest."
+    />
     <title>Entrar | Nexa Play</title>
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href="assets/nunito-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="auth.css" />
   </head>
-  <body>
-    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-    <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="index.html" aria-label="Nexa Play — início"><span class="brand-name">nexa<span class="brand-play">play</span></span></a>
-        <nav class="main-nav" aria-label="Navegação principal">
-          <a class="nav-link" href="index.html">Início</a><a class="nav-link" href="sobre-nos.html">Sobre</a>
-          <a class="nav-link" href="o-que-fazemos.html">O que fazemos</a><a class="nav-link" href="projetos.html">Projetos</a>
-        </nav>
-        <div class="header-actions"><a class="btn btn-header" href="login.html" aria-current="page">Entrar</a></div>
-        <details class="mobile-menu">
-          <summary aria-label="Abrir menu de navegação">Menu</summary>
-          <nav aria-label="Navegação para celular">
-            <h2>Navegação</h2><a href="index.html">Início</a><a href="sobre-nos.html">Sobre</a>
-            <a href="o-que-fazemos.html">O que fazemos</a><a href="projetos.html">Projetos</a>
-            <a href="nexa-quest.html">Nexa Quest</a><a href="como-funciona.html">Como funciona</a>
-            <a href="login.html" aria-current="page">Entrar</a><a href="cadastro.html">Criar conta</a>
-          </nav>
-        </details>
+  <body class="auth-page">
+    <aside class="auth-story" aria-labelledby="story-heading">
+      <a
+        class="auth-brand"
+        href="index.html"
+        aria-label="Nexa Play — página inicial"
+        ><img src="assets/logo.svg" width="180" height="48" alt="Nexa Play"
+      /></a>
+      <span class="story-ring" aria-hidden="true"></span
+      ><span class="story-dot" aria-hidden="true"></span>
+      <div class="achievement achievement--weekly" aria-hidden="true">
+        <span class="achievement-icon"
+          ><svg viewBox="0 0 24 24"><path d="m14 2-9 12h6l-1 8 9-12h-6z" /></svg
+        ></span>
+        <div class="achievement-copy">
+          <strong>Desafio da semana</strong
+          ><span class="achievement-progress"></span>
+        </div>
+        <span class="achievement-xp">+50 XP</span>
       </div>
-    </header>
-    <main id="conteudo" class="page-main auth-main">
-      <div class="container auth-shell">
-        <aside class="auth-story" aria-label="Nexa Quest">
-          <div>
-            <h2>Acompanhe o<br />Nexa Quest.</h2>
-            <p>Entre para acompanhar as novidades e as etapas do jogo.</p>
+      <div class="achievement achievement--level" aria-hidden="true">
+        <span class="achievement-icon"
+          ><svg viewBox="0 0 24 24">
+            <path d="m12 2 8 3v7c0 5-4 9-8 10-4-1-8-5-8-10V5z" /></svg
+        ></span>
+        <div class="achievement-copy">
+          <strong>Nível 12 alcançado</strong
+          ><small>2.450 XP · faltam 550 para o 13</small>
+        </div>
+      </div>
+      <div class="achievement achievement--badge" aria-hidden="true">
+        <span class="achievement-icon"
+          ><svg viewBox="0 0 24 24">
+            <path
+              d="M6 3h12v5c0 4-2 6-5 7v4h4v2H7v-2h4v-4c-3-1-5-3-5-7z"
+            /></svg
+        ></span>
+        <div class="achievement-copy">
+          <strong>Badge desbloqueado</strong><small>Explorador</small>
+        </div>
+      </div>
+      <div class="story-message">
+        <h2 id="story-heading">Continue de onde parou.</h2>
+        <p>Entre na sua conta Nexa Play e retome suas missões e conquistas.</p>
+      </div>
+    </aside>
+    <main class="auth-main" id="conteudo">
+      <nav class="auth-nav" aria-label="Navegação de acesso">
+        <a class="auth-back" href="index.html">← VOLTAR AO SITE</a>
+        <div class="auth-nav-account">
+          <span>Novo por aqui?</span
+          ><a class="auth-nav-button" href="cadastro.html">CRIAR CONTA</a>
+        </div>
+      </nav>
+      <div class="auth-content">
+        <h1 class="auth-heading">Bem-vindo de volta!</h1>
+        <p class="auth-intro">
+          Entre para continuar suas missões e conquistas.
+        </p>
+        <!-- Este formulário envia os dados ao backend Nexa Play. -->
+        <form class="auth-form" action="/api/forms/login" method="post">
+          <div class="auth-field">
+            <label for="email">E-MAIL</label
+            ><input
+              id="email" name="email"
+              type="email"
+              placeholder="voce@email.com"
+              autocomplete="email"
+              required
+            />
           </div>
-          <div class="quest-wordmark" role="img" aria-label="Nexa Quest"><span>nexa</span><span><i class="quest-q">q</i>uest</span></div>
-        </aside>
-        <section class="auth-card" aria-labelledby="login-title">
-          <div class="auth-heading">
-            <h1 id="login-title">Entrar na sua conta</h1>
-            <p class="desktop-description">Use seu e-mail e senha para acessar.</p>
-            <p class="mobile-description">Entre para acompanhar as novidades e as etapas do Nexa Quest.</p>
+          <div class="auth-field">
+            <label for="senha">SENHA</label>
+            <div class="auth-password">
+              <input
+                id="senha" name="senha"
+                type="password"
+                placeholder="Digite sua senha"
+                autocomplete="current-password"
+                required
+              /><button
+                class="auth-password-display"
+                type="button"
+                disabled
+                title="A exibição da senha estará disponível na versão com interatividade."
+              >
+                MOSTRAR
+              </button>
+            </div>
           </div>
-          <div class="auth-inline-logo quest-wordmark" role="img" aria-label="Nexa Quest"><span>nexa</span><span><i class="quest-q">q</i>uest</span></div>
-          <form class="auth-form" action="/api/forms/login" method="post">
-            <div class="field">
-              <label for="email">E-mail</label>
-              <input id="email" name="email" type="email" placeholder="seuemail@exemplo.com" autocomplete="email" required />
-            </div>
-            <div class="field">
-              <label for="senha">Senha</label>
-              <input id="senha" name="senha" type="password" placeholder="••••••••" autocomplete="current-password" minlength="8" required />
-            </div>
-            <button class="auth-submit" type="submit">Entrar</button>
-          </form>
-          <div class="auth-switch"><span>Ainda não tem conta?</span><a href="cadastro.html">Cadastre-se</a></div>
-        </section>
+          <a class="auth-forgot" href="#aviso-recuperacao">ESQUECEU A SENHA?</a>
+          <button class="auth-submit" type="submit">ENTRAR</button>
+        </form>
+        <div class="auth-divider" aria-hidden="true">OU</div>
+        <div class="auth-socials" aria-label="Outras opções de acesso">
+          <a class="auth-social" href="#aviso-acesso">GOOGLE</a
+          ><a class="auth-social" href="#aviso-acesso">APPLE</a>
+        </div>
       </div>
     </main>
+    <section
+      class="auth-notice"
+      id="aviso-acesso"
+      aria-labelledby="aviso-acesso-titulo"
+    >
+      <div class="auth-notice-panel">
+        <h2 id="aviso-acesso-titulo">Acesso à conta</h2>
+        <p>
+          O acesso com e-mail e senha está disponível. As opções Google e Apple ainda não foram configuradas.
+        </p>
+        <a class="auth-notice-close" href="login.html">VOLTAR</a>
+      </div>
+    </section>
+    <section
+      class="auth-notice"
+      id="aviso-recuperacao"
+      aria-labelledby="aviso-recuperacao-titulo"
+    >
+      <div class="auth-notice-panel">
+        <h2 id="aviso-recuperacao-titulo">Recuperar senha</h2>
+        <p>
+          A recuperação de senha estará disponível após a integração de
+          autenticação. Nesta demonstração, nenhum e-mail é enviado.
+        </p>
+        <a class="auth-notice-close" href="login.html">VOLTAR</a>
+      </div>
+    </section>
   </body>
 </html>

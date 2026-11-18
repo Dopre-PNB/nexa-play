@@ -2,99 +2,379 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A história da Nexa Play e a criação do Nexa Quest." />
-    <meta name="theme-color" content="#fffafd" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Conheça a Nexa Play: entretenimento, aprendizado e tecnologia em experiências digitais interativas."
+    />
     <title>Sobre nós | Nexa Play</title>
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href="assets/nunito-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="about.css" />
   </head>
-  <body>
-    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <body class="about-page">
+    <svg
+      class="about-sprite"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <defs>
+        <symbol id="i-play" viewBox="0 0 24 24">
+          <path d="M7 4 21 12 7 20Z" fill="currentColor" stroke="none" />
+        </symbol>
+        <symbol id="i-book" viewBox="0 0 24 24">
+          <path
+            d="M12 5C8 3 4 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-2-1-6-1-10 1Zm0 0v15"
+          />
+        </symbol>
+        <symbol id="i-monitor" viewBox="0 0 24 24">
+          <rect
+            x="2"
+            y="3"
+            width="20"
+            height="14"
+            rx="2"
+            fill="currentColor"
+            stroke="none"
+          />
+          <path d="M12 17v4m-4 0h8" />
+        </symbol>
+        <symbol id="i-bolt" viewBox="0 0 24 24">
+          <path
+            d="m14 1-10 13h7l-1 9 10-14h-7Z"
+            fill="currentColor"
+            stroke="none"
+          />
+        </symbol>
+        <symbol id="i-sword" viewBox="0 0 24 24">
+          <path d="m3 3 5 1 11 11-4 4L4 8Zm11 15 4-4m-2 7 5-5m-3 2 4 4" />
+        </symbol>
+        <symbol id="i-flag" viewBox="0 0 24 24">
+          <path d="M5 22V2m0 1h15l-4 5 4 5H5" fill="currentColor" />
+        </symbol>
+        <symbol id="i-globe" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" />
+          <ellipse cx="12" cy="12" rx="4" ry="10" />
+          <path d="M2 12h20" />
+        </symbol>
+        <symbol id="i-cup" viewBox="0 0 24 24">
+          <path
+            d="M7 3h10v7a5 5 0 0 1-10 0Zm0 1H3v3c0 3 2 5 5 5m9-8h4v3c0 3-2 5-5 5M12 15v6m-4 0h8"
+            fill="currentColor"
+          />
+        </symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24">
+          <path
+            d="m12 2 9 4v6c0 5-5 9-9 11-4-2-9-6-9-11V6Z"
+            fill="currentColor"
+            stroke="none"
+          />
+        </symbol>
+        <symbol id="i-warning" viewBox="0 0 24 24">
+          <path d="m12 3 10 18H2Zm0 6v5m0 3v.1" />
+        </symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24">
+          <rect x="3" y="10" width="18" height="12" rx="1" />
+          <path d="M7 10V6a5 5 0 0 1 10 0v4" />
+        </symbol>
+        <symbol id="i-calc" viewBox="0 0 24 24">
+          <rect x="5" y="2" width="14" height="20" rx="2" />
+          <path d="M8 5h8v4H8Zm0 8h1m3 0h1m3 0h.1M8 17h1m3 0h1m3 0h.1" />
+        </symbol>
+        <symbol id="i-history" viewBox="0 0 24 24">
+          <path
+            d="m2 6 10-4 10 4Zm1 3h18M5 9v10m5-10v10m4-10v10m5-10v10M2 22h20M3 19h18"
+          />
+        </symbol>
+        <symbol id="i-atom" viewBox="0 0 24 24">
+          <ellipse
+            cx="12"
+            cy="12"
+            rx="5"
+            ry="11"
+            transform="rotate(45 12 12)"
+          />
+          <ellipse
+            cx="12"
+            cy="12"
+            rx="5"
+            ry="11"
+            transform="rotate(-45 12 12)"
+          />
+          <circle cx="12" cy="12" r="1" fill="currentColor" />
+        </symbol>
+        <symbol id="i-flask" viewBox="0 0 24 24">
+          <path d="M8 2h8m-6 0v8L4 21h16l-6-11V2M7 16h10" />
+        </symbol>
+        <symbol id="i-leaf" viewBox="0 0 24 24">
+          <path d="M3 21C4 10 12 3 22 2c0 13-7 19-16 15M3 21l11-11" />
+        </symbol>
+        <symbol id="i-gem" viewBox="0 0 24 24">
+          <path d="m2 8 5-6h10l5 6-10 14Zm0 0h20M7 2l5 20 5-20M7 2l5 6 5-6" />
+        </symbol>
+        <symbol id="i-check" viewBox="0 0 24 24">
+          <path d="m4 12 5 5L21 5" />
+        </symbol>
+      </defs></svg
+    ><a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="index.html" aria-label="Nexa Play — início"><span class="brand-name">nexa<span class="brand-play">play</span></span></a>
+      <div class="container header-inner">
+        <a class="brand" href="index.html" aria-label="Nexa Play, início"
+          ><img src="assets/logo.svg" width="180" height="48" alt="Nexa Play"
+        /></a>
         <nav class="main-nav" aria-label="Navegação principal">
-          <a class="nav-link" href="index.html">Início</a>
-          <a class="nav-link active" href="sobre-nos.html" aria-current="page">Sobre</a>
-          <a class="nav-link" href="o-que-fazemos.html">O que fazemos</a>
-          <a class="nav-link" href="projetos.html">Projetos</a>
+          <a class="nav-link" href="index.html">Início</a
+          ><a class="nav-link" href="nexa-quest.html">Nexa Quest</a
+          ><a class="nav-link active" href="sobre-nos.html" aria-current="page"
+            >Sobre nós</a
+          ><a class="nav-link" href="download.html">Baixar</a>
         </nav>
-        <div class="header-actions"><a class="btn btn-header" href="login.html">Entrar</a></div>
+        <div class="header-actions">
+          <a class="btn btn-dark" href="login.html">Entrar</a
+          ><a class="btn btn-blue" href="cadastro.html">Criar conta</a>
+        </div>
         <details class="mobile-menu">
           <summary aria-label="Abrir menu de navegação">Menu</summary>
           <nav aria-label="Navegação para celular">
-            <h2>Navegação</h2>
-            <a href="index.html">Início</a><a href="sobre-nos.html" aria-current="page">Sobre</a>
-            <a href="o-que-fazemos.html">O que fazemos</a><a href="projetos.html">Projetos</a>
-            <a href="nexa-quest.html">Nexa Quest</a><a href="como-funciona.html">Como funciona</a>
-            <a href="login.html">Entrar</a><a href="cadastro.html">Criar conta</a>
+            <a href="index.html">Início</a
+            ><a href="nexa-quest.html">Nexa Quest</a
+            ><a href="sobre-nos.html">Sobre nós</a
+            ><a href="download.html">Baixar</a><a href="login.html">Entrar</a
+            ><a href="cadastro.html">Criar conta</a>
           </nav>
         </details>
       </div>
     </header>
-
-    <main id="conteudo" class="page-main">
-      <section class="container about-intro" aria-labelledby="about-title">
-        <div>
-          <h1 id="about-title">Conheça a Nexa Play.</h1>
-          <p>A Nexa Play surgiu para reunir jogos e projetos criativos. O Nexa Quest é o primeiro deles, com foco no aprendizado de Libras.</p>
+    <main id="conteudo">
+      <section class="hero about-hero">
+        <div class="container hero-grid">
+          <div class="hero-content">
+            <span class="pill">Quem somos</span>
+            <h1>Somos a Nexa Play</h1>
+            <p class="about-subtitle">
+              Transformamos interação em experiências que inspiram, conectam e
+              fazem evoluir.
+            </p>
+            <p class="lead">
+              A Nexa Play é uma startup brasileira, fundada em 2022 por
+              profissionais de tecnologia, design, audiovisual e games.
+            </p>
+            <div class="actions">
+              <a class="btn btn-blue" href="nexa-quest.html"
+                >Conheça o Nexa Quest</a
+              ><a class="btn btn-dark" href="download.html">Baixar o app</a>
+            </div>
+          </div>
+          <div class="hero-art">
+            <img
+              src="assets/about-hero.svg"
+              width="570"
+              height="500"
+              alt="Símbolo Nexa Play conectado a entretenimento, aprendizado e tecnologia."
+            />
+          </div>
         </div>
-        <div class="display-mark" role="img" aria-label="Nexa Play"><span>nexa</span><span>play</span></div>
       </section>
-
-      <section class="container timeline-overview" aria-labelledby="history-title">
-        <div>
-          <p class="timeline-year">2022</p>
-          <h2 id="history-title" class="visually-hidden">A história da Nexa Play</h2>
-        </div>
-        <div class="timeline-copy">
-          <h2>Como tudo começou</h2>
-          <p>A Nexa Play foi fundada em 2022 por profissionais de tecnologia, design, audiovisual e games.</p>
-          <p>O site apresenta a empresa e o Nexa Quest.</p>
+      <section class="section section-alt about-services">
+        <div class="container">
+          <div class="about-centered">
+            <span class="eyebrow">O que fazemos</span>
+            <h2>Experiências para participar, não só assistir.</h2>
+            <p>
+              Criamos experiências digitais interativas que incentivam a
+              participação, a evolução e o engajamento do público jovem.
+            </p>
+          </div>
+          <div class="grid-3">
+            <article class="card about-service">
+              <span class="about-icon" aria-hidden="true"
+                ><svg viewBox="0 0 24 24"><use href="#i-play"></use></svg
+              ></span>
+              <h3>Entretenimento</h3>
+              <p>
+                Experiências interativas que despertam curiosidade e incentivam
+                a participação.
+              </p>
+            </article>
+            <article class="card about-service">
+              <span class="about-icon about-icon-orange" aria-hidden="true"
+                ><svg viewBox="0 0 24 24"><use href="#i-book"></use></svg
+              ></span>
+              <h3>Aprendizado</h3>
+              <p>Conteúdos leves integrados à diversão e à exploração.</p>
+            </article>
+            <article class="card about-service">
+              <span class="about-icon" aria-hidden="true"
+                ><svg viewBox="0 0 24 24"><use href="#i-monitor"></use></svg
+              ></span>
+              <h3>Tecnologia</h3>
+              <p>
+                Experiências digitais que conectam interação, evolução e
+                narrativa.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
-
-      <section class="container timeline-section" aria-labelledby="timeline-title">
-        <h2 id="timeline-title">Da ideia ao primeiro jogo</h2>
-        <p>Do começo da ideia até o primeiro jogo.</p>
-        <div class="timeline-grid">
-          <article class="card timeline-card">
-            <span class="timeline-date">01 / 2022</span>
-            <h3>Início da startup</h3>
-            <p>O projeto nasceu da união de diferentes áreas criativas.</p>
-          </article>
-          <article class="card timeline-card">
-            <span class="timeline-date">02 / Protótipos</span>
-            <h3>Experimentação</h3>
-            <p>Referências, telas e testes ajudaram a definir a ideia.</p>
-          </article>
-          <article class="card timeline-card">
-            <span class="timeline-date">03 / Primeiro jogo</span>
-            <h3>Nexa Quest</h3>
-            <p>O primeiro jogo da Nexa Play é voltado ao aprendizado de Libras.</p>
-          </article>
+      <section class="section about-product">
+        <div class="container">
+          <div class="about-product-top">
+            <div class="about-product-copy">
+              <span class="pill">Nosso produto</span>
+              <h2>Conheça o Nexa Quest.</h2>
+              <p>
+                O Nexa Quest é a plataforma digital interativa da Nexa Play:
+                gamificação, aprendizado leve, narrativa envolvente e
+                experiência multiplataforma.
+              </p>
+              <a class="btn btn-blue" href="nexa-quest.html">Saiba mais</a>
+            </div>
+            <div
+              class="about-missions"
+              aria-label="Exemplos de missões do Nexa Quest"
+            >
+              <div class="about-mission">
+                <span class="about-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><use href="#i-bolt"></use></svg
+                ></span>
+                <div class="about-mission-content">
+                  <h3>Desafio da semana</h3>
+                  <div class="about-progress" aria-hidden="true">
+                    <span></span>
+                  </div>
+                </div>
+                <span class="about-xp">+50 XP</span>
+              </div>
+              <div class="about-mission">
+                <span class="about-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><use href="#i-bolt"></use></svg
+                ></span>
+                <div class="about-mission-content">
+                  <h3>Missão completa!</h3>
+                  <div class="about-progress complete" aria-hidden="true">
+                    <span></span>
+                  </div>
+                </div>
+                <span class="about-check" aria-hidden="true">✓</span>
+              </div>
+              <div class="about-mission">
+                <span class="about-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><use href="#i-bolt"></use></svg
+                ></span>
+                <div class="about-mission-content">
+                  <h3>Suba de nível</h3>
+                  <div class="about-progress" aria-hidden="true">
+                    <span></span>
+                  </div>
+                </div>
+                <span class="about-xp">+50 XP</span>
+              </div>
+            </div>
+          </div>
+          <div class="about-steps">
+            <span class="eyebrow">Como funciona</span>
+            <div class="about-step-grid">
+              <article class="about-step">
+                <span class="about-icon about-icon-orange" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><use href="#i-sword"></use></svg
+                ></span>
+                <h3>Desafios</h3>
+                <p>Participe de desafios interativos.</p>
+              </article>
+              <article class="about-step">
+                <span class="about-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><use href="#i-flag"></use></svg
+                ></span>
+                <h3>Missões</h3>
+                <p>Complete missões pelo caminho.</p>
+              </article>
+              <article class="about-step">
+                <span class="about-icon about-icon-orange" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><use href="#i-globe"></use></svg
+                ></span>
+                <h3>Jornadas</h3>
+                <p>Avance em jornadas com narrativa.</p>
+              </article>
+              <article class="about-step">
+                <span class="about-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><use href="#i-bolt"></use></svg
+                ></span>
+                <h3>Evolução</h3>
+                <p>Evolua e desbloqueie conteúdos.</p>
+              </article>
+              <article class="about-step">
+                <span class="about-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><use href="#i-cup"></use></svg
+                ></span>
+                <h3>Conquistas</h3>
+                <p>Compartilhe suas conquistas.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="about-essence">
+        <div class="container">
+          <span class="eyebrow">Nossa essência</span>
+          <h2>Mais do que jogar. Mais do que aprender.</h2>
+          <h3>Uma experiência para explorar, evoluir e conquistar.</h3>
+          <div class="about-equation">
+            <span class="pill">Entretenimento</span><b aria-hidden="true">+</b
+            ><span class="pill">Aprendizado</span><b aria-hidden="true">+</b
+            ><span class="pill">Tecnologia</span>
+          </div>
+          <p>
+            Nosso diferencial é unir os três em uma experiência divertida,
+            imersiva e recompensadora.
+          </p>
+          <div class="actions">
+            <a class="btn btn-white" href="nexa-quest.html"
+              >Conheça o Nexa Quest</a
+            ><a class="btn btn-dark" href="download.html">Baixar o app</a>
+          </div>
         </div>
       </section>
     </main>
-
-    <footer class="site-footer" id="rodape">
-      <div class="container footer-inner">
-        <div class="footer-brand">
-          <h2>Nexa Play</h2><p>Jogos e experiências interativas.</p>
-          <div class="social-links" aria-label="Redes sociais">
-            <span class="social-icon" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="m10 9 5 3-5 3z"/></svg></span>
-            <span class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></span>
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a class="brand" href="index.html"
+              ><img
+                src="assets/logo.svg"
+                width="180"
+                height="48"
+                alt="Nexa Play"
+            /></a>
+            <p>
+              Experiências digitais que conectam<br />entretenimento,
+              aprendizado e tecnologia.
+            </p>
+          </div>
+          <div class="footer-links">
+            <nav class="footer-column" aria-label="Nexa Play">
+              <h3>Nexa Play</h3>
+              <a href="index.html">Início</a
+              ><a href="sobre-nos.html">Sobre nós</a>
+            </nav>
+            <nav class="footer-column" aria-label="Nexa Quest">
+              <h3>Nexa Quest</h3>
+              <a href="sobre-o-jogo.html">O jogo</a
+              ><a href="download.html">Baixar</a>
+            </nav>
+            <nav class="footer-column" aria-label="Conta">
+              <h3>Conta</h3>
+              <a href="login.html">Entrar</a
+              ><a href="cadastro.html">Criar conta</a>
+            </nav>
           </div>
         </div>
-        <nav class="footer-links" aria-label="Links do rodapé">
-          <h2>Links</h2><div class="footer-link-grid">
-            <a href="index.html">Início</a><a href="projetos.html">Projetos</a>
-            <a href="sobre-nos.html">Sobre nós</a><a href="nexa-quest.html">Nexa Quest</a>
-            <a href="o-que-fazemos.html">O que fazemos</a><a href="login.html">Entrar</a>
-          </div>
-        </nav>
+        <div class="footer-bottom">
+          <p>
+            © 2026 Nexa Play. Todos os direitos reservados. Nexa Quest é um jogo
+            da Nexa Play.
+          </p>
+        </div>
       </div>
     </footer>
   </body>

@@ -1,74 +1,149 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Crie uma conta para acompanhar o Nexa Quest." />
-    <meta name="theme-color" content="#fffafd" />
+    <meta
+      name="description"
+      content="Crie seu perfil Nexa Play para começar sua jornada no Nexa Quest."
+    />
     <title>Criar conta | Nexa Play</title>
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href="assets/nunito-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="auth.css" />
   </head>
-  <body>
-    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-    <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="index.html" aria-label="Nexa Play — início"><span class="brand-name">nexa<span class="brand-play">play</span></span></a>
-        <nav class="main-nav" aria-label="Navegação principal">
-          <a class="nav-link" href="index.html">Início</a><a class="nav-link" href="sobre-nos.html">Sobre</a>
-          <a class="nav-link" href="o-que-fazemos.html">O que fazemos</a><a class="nav-link" href="projetos.html">Projetos</a>
-        </nav>
-        <div class="header-actions"><a class="btn btn-header" href="login.html">Entrar</a></div>
-        <details class="mobile-menu">
-          <summary aria-label="Abrir menu de navegação">Menu</summary>
-          <nav aria-label="Navegação para celular">
-            <h2>Navegação</h2><a href="index.html">Início</a><a href="sobre-nos.html">Sobre</a>
-            <a href="o-que-fazemos.html">O que fazemos</a><a href="projetos.html">Projetos</a>
-            <a href="nexa-quest.html">Nexa Quest</a><a href="como-funciona.html">Como funciona</a>
-            <a href="login.html">Entrar</a><a href="cadastro.html" aria-current="page">Criar conta</a>
-          </nav>
-        </details>
+  <body class="auth-page">
+    <aside class="auth-story" aria-labelledby="story-heading">
+      <a
+        class="auth-brand"
+        href="index.html"
+        aria-label="Nexa Play — página inicial"
+        ><img src="assets/logo.svg" width="180" height="48" alt="Nexa Play"
+      /></a>
+      <span class="story-ring" aria-hidden="true"></span
+      ><span class="story-dot" aria-hidden="true"></span>
+      <div class="achievement achievement--weekly" aria-hidden="true">
+        <span class="achievement-icon"
+          ><svg viewBox="0 0 24 24"><path d="m14 2-9 12h6l-1 8 9-12h-6z" /></svg
+        ></span>
+        <div class="achievement-copy">
+          <strong>Desafio da semana</strong
+          ><span class="achievement-progress"></span>
+        </div>
+        <span class="achievement-xp">+50 XP</span>
       </div>
-    </header>
-    <main id="conteudo" class="page-main auth-main">
-      <div class="container auth-shell">
-        <aside class="auth-story" aria-label="Nexa Quest">
-          <div>
-            <h2>Conheça o<br />Nexa Quest.</h2>
-            <p>Faça seu cadastro para acompanhar o projeto.</p>
+      <div class="achievement achievement--level" aria-hidden="true">
+        <span class="achievement-icon"
+          ><svg viewBox="0 0 24 24">
+            <path d="m12 2 8 3v7c0 5-4 9-8 10-4-1-8-5-8-10V5z" /></svg
+        ></span>
+        <div class="achievement-copy">
+          <strong>Nível 12 alcançado</strong
+          ><small>2.450 XP · faltam 550 para o 13</small>
+        </div>
+      </div>
+      <div class="achievement achievement--badge" aria-hidden="true">
+        <span class="achievement-icon"
+          ><svg viewBox="0 0 24 24">
+            <path
+              d="M6 3h12v5c0 4-2 6-5 7v4h4v2H7v-2h4v-4c-3-1-5-3-5-7z"
+            /></svg
+        ></span>
+        <div class="achievement-copy">
+          <strong>Badge desbloqueado</strong><small>Pixel</small>
+        </div>
+      </div>
+      <div class="story-message">
+        <h2 id="story-heading">Sua jornada começa aqui.</h2>
+        <p>Crie sua conta Nexa Play e jogue o Nexa Quest em qualquer tela.</p>
+      </div>
+    </aside>
+    <main class="auth-main" id="conteudo">
+      <nav class="auth-nav" aria-label="Navegação de cadastro">
+        <a class="auth-back" href="index.html">← VOLTAR AO SITE</a>
+        <div class="auth-nav-account">
+          <span>Já tem conta?</span
+          ><a class="auth-nav-button" href="login.html">ENTRAR</a>
+        </div>
+      </nav>
+      <div class="auth-content">
+        <h1 class="auth-heading">Crie seu perfil</h1>
+        <p class="auth-intro">
+          Uma conta Nexa Play para jogar o Nexa Quest e<br
+            class="auth-desktop-break"
+          />
+          salvar seu progresso.
+        </p>
+        <!-- Este formulário envia os dados ao backend Nexa Play. -->
+        <form class="auth-form" action="/api/forms/cadastro" method="post">
+          <div class="auth-field">
+            <label for="nome">NOME DE JOGADOR</label
+            ><input
+              id="nome" name="nome_jogador"
+              type="text"
+              placeholder="Como você quer ser chamado?"
+              autocomplete="nickname"
+              minlength="2"
+              maxlength="40"
+              required
+            />
           </div>
-          <div class="quest-wordmark" role="img" aria-label="Nexa Quest"><span>nexa</span><span><i class="quest-q">q</i>uest</span></div>
-        </aside>
-        <section class="auth-card register-card" aria-labelledby="register-title">
-          <div class="auth-heading">
-            <h1 id="register-title">Criar minha conta</h1>
-            <p>Pré-cadastro para acompanhar o Nexa Quest.</p>
+          <div class="auth-field">
+            <label for="email">E-MAIL</label
+            ><input
+              id="email" name="email"
+              type="email"
+              placeholder="voce@email.com"
+              autocomplete="email"
+              required
+            />
           </div>
-          <div class="auth-inline-logo quest-wordmark" role="img" aria-label="Nexa Quest"><span>nexa</span><span><i class="quest-q">q</i>uest</span></div>
-          <form class="auth-form" action="/api/forms/cadastro" method="post">
-            <div class="field">
-              <label for="nome">Nome</label>
-              <input id="nome" name="nome_jogador" type="text" placeholder="Seu nome" autocomplete="name" minlength="2" maxlength="40" required />
+          <div class="auth-field">
+            <label for="senha">SENHA</label>
+            <div class="auth-password">
+              <input
+                id="senha" name="senha"
+                type="password"
+                placeholder="Mínimo de 8 caracteres"
+                autocomplete="new-password"
+                minlength="8"
+                required
+              /><button
+                class="auth-password-display"
+                type="button"
+                disabled
+                title="A exibição da senha estará disponível na versão com interatividade."
+              >
+                MOSTRAR
+              </button>
             </div>
-            <div class="field">
-              <label for="email">E-mail</label>
-              <input id="email" name="email" type="email" placeholder="seuemail@exemplo.com" autocomplete="email" required />
-            </div>
-            <div class="field">
-              <label for="senha">Senha</label>
-              <input id="senha" name="senha" type="password" placeholder="••••••••" autocomplete="new-password" minlength="8" required />
-            </div>
-            <div class="field">
-              <label for="confirmar-senha">Confirmar senha</label>
-              <input id="confirmar-senha" name="confirmar_senha" type="password" placeholder="••••••••" autocomplete="new-password" minlength="8" required />
-            </div>
-            <button class="auth-submit" type="submit">Criar conta</button>
-          </form>
-          <div class="auth-switch"><span>Já tem uma conta?</span><a href="login.html">Entrar</a></div>
-        </section>
+          </div>
+          <button class="auth-submit" type="submit">CRIAR CONTA</button>
+        </form>
+        <div class="auth-divider" aria-hidden="true">OU</div>
+        <div class="auth-socials" aria-label="Outras opções de cadastro">
+          <a class="auth-social" href="#aviso-cadastro">GOOGLE</a
+          ><a class="auth-social" href="#aviso-cadastro">APPLE</a>
+        </div>
+        <p class="auth-terms">
+          Ao criar sua conta, você concorda com os Termos de Uso e a<br
+            class="auth-desktop-break"
+          />
+          Política de Privacidade da Nexa Play.
+        </p>
       </div>
     </main>
+    <section
+      class="auth-notice"
+      id="aviso-cadastro"
+      aria-labelledby="aviso-cadastro-titulo"
+    >
+      <div class="auth-notice-panel">
+        <h2 id="aviso-cadastro-titulo">Criar conta</h2>
+        <p>
+          O cadastro com e-mail está disponível. As opções Google e Apple ainda não foram configuradas.
+        </p>
+        <a class="auth-notice-close" href="cadastro.html">VOLTAR</a>
+      </div>
+    </section>
   </body>
 </html>
