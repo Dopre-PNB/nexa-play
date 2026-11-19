@@ -43,6 +43,7 @@ function createApp(env = loadEnv()) {
     const origin = req.get('origin');
     const requestOrigin = `${req.protocol}://${req.get('host')}`;
     if (origin && origin !== requestOrigin && !allowedOrigins.has(origin)) {
+      console.info({ event: 'origin_rejected', origin, requestOrigin, fetchSite: req.get('sec-fetch-site') });
       const { forbidden } = require('./utils/errors');
       return next(forbidden('Esta origem não está autorizada a acessar a API.'));
     }
