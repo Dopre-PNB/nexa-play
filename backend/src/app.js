@@ -42,8 +42,15 @@ function createApp(env = loadEnv()) {
   app.use((req, _res, next) => {
     const origin = req.get('origin');
     const requestOrigin = `${req.protocol}://${req.get('host')}`;
-    if (origin && origin !== requestOrigin && !allowedOrigins.has(origin)) {
-      console.info({ event: 'origin_rejected', origin, requestOrigin, fetchSite: req.get('sec-fetch-site') });
+    // Alguns navegadores enviam Origin: null no formulário mesmo para a própria
+    // página. Só aceitamos essa situação quando o navegador confirma a mesma
+    // origem e apenas nos dois formulários de autenticação.
+    const sameOriginForm = origin === 'null'
+      && req.get('sec-fetch-site') === 'same-origin'
+      && req.method === 'POST'
+      && ['/api/forms/login', '/api/forms/cadastro'].includes(req.path)
+      && req.is('application/x-www-form-urlencoded');
+    if (origin && origin !== requestOrigin && !allowedOrigins.has(origin) && !sameOriginForm) {
       const { forbidden } = require('./utils/errors');
       return next(forbidden('Esta origem não está autorizada a acessar a API.'));
     }
