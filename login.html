@@ -10,6 +10,7 @@
     <title>Entrar | Nexa Play</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="auth.css" />
+    <script src="assets/password-toggle.js" defer></script>
   </head>
   <body class="auth-page">
     <aside class="auth-story" aria-labelledby="story-heading">
@@ -97,7 +98,9 @@
                 class="auth-password-display"
                 type="button"
                 disabled
-                title="A exibição da senha estará disponível na versão com interatividade."
+                aria-controls="senha"
+                aria-label="Mostrar senha"
+                aria-pressed="false"
               >
                 MOSTRAR
               </button>

@@ -76,7 +76,7 @@ function createApp(env = loadEnv()) {
   app.use((req, res, next) => {
     if (!['GET', 'HEAD'].includes(req.method)) return next();
     if (req.path === '/backend' || req.path.startsWith('/backend/')) return next();
-    if (req.path !== '/' && !publicExtensions.has(path.extname(req.path).toLowerCase())) return next();
+    if (req.path !== '/' && req.path !== '/assets/password-toggle.js' && !publicExtensions.has(path.extname(req.path).toLowerCase())) return next();
     return serveStaticSite(req, res, next);
   });
 

@@ -10,6 +10,7 @@
     <title>Criar conta | Nexa Play</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="auth.css" />
+    <script src="assets/password-toggle.js" defer></script>
   </head>
   <body class="auth-page">
     <aside class="auth-story" aria-labelledby="story-heading">
@@ -113,7 +114,9 @@
                 class="auth-password-display"
                 type="button"
                 disabled
-                title="A exibição da senha estará disponível na versão com interatividade."
+                aria-controls="senha"
+                aria-label="Mostrar senha"
+                aria-pressed="false"
               >
                 MOSTRAR
               </button>
@@ -121,6 +124,7 @@
           </div>
           <div class="auth-field">
             <label for="confirmar-senha">CONFIRME A SENHA</label>
+            <div class="auth-password">
             <input
               id="confirmar-senha"
               name="confirmar_senha"
@@ -130,7 +134,16 @@
               minlength="8"
               maxlength="72"
               required
-            />
+            /><button
+              class="auth-password-display"
+              type="button"
+              disabled
+              aria-controls="confirmar-senha"
+              aria-label="Mostrar confirmação de senha"
+              aria-pressed="false"
+              data-field-label="confirmação de senha"
+            >MOSTRAR</button>
+            </div>
           </div>
           <button class="auth-submit" type="submit">CRIAR CONTA</button>
         </form>

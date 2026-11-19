@@ -332,6 +332,9 @@
   cursor: default;
   opacity: 1;
 }
+.auth-password-display:not(:disabled) {
+  cursor: pointer;
+}
 .auth-forgot {
   display: block;
   width: fit-content;
