@@ -61,7 +61,7 @@ Se usar outra porta, ajuste `PORT` no `.env` e os endereços acima. Para abrir o
 
 ## 4. Usar o sistema
 
-Na página inicial, navegue pelas informações do projeto e do Nexa Quest. Em **Criar conta**, informe nome, e-mail, senha e confirmação. Depois, use **Entrar** com o mesmo e-mail e senha. No momento, o cadastro e o login redirecionam para a página do Nexa Quest; a experiência completa do jogo e as telas de progresso ainda não estão disponíveis.
+Na página inicial, navegue pelas informações do projeto e do Nexa Quest. Em **Criar conta**, informe nome, e-mail, senha e confirmação. Depois, use **Entrar** com o mesmo e-mail e senha. O cadastro e o login direcionam para a página da conta, onde é possível conferir a sessão e sair; a experiência completa do jogo e as telas de progresso ainda não estão disponíveis.
 
 Para explorar a API, abra `/api/docs`, consulte as operações e seus parâmetros e autentique-se nas rotas que exigem conta. O catálogo e os exemplos de jornadas, missões e níveis são fornecidos pelo seed. A documentação da API informa quais operações exigem autenticação ou perfil de administrador.
 

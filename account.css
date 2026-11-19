@@ -1,0 +1,48 @@
+.account-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 28px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #07081f;
+  color: #fff;
+  font-family: "Nunito", sans-serif;
+}
+.account-card {
+  width: min(100%, 560px);
+  padding: clamp(24px, 5vw, 48px);
+  border: 2px solid #292b69;
+  border-radius: 24px;
+  background: #13143a;
+  text-align: center;
+}
+.account-brand img { max-width: 100%; height: auto; }
+.account-status { color: #32a7df; font-weight: 800; margin: 30px 0 8px; }
+.account-card h1 { margin: 0; font-size: clamp(30px, 6vw, 40px); overflow-wrap: anywhere; }
+.account-card > p:not(.account-status) { color: #b9bfdc; margin: 12px 0; }
+.account-details { margin: 28px 0; text-align: left; }
+.account-details div { padding: 12px 0; border-bottom: 1px solid #292b69; }
+.account-details dt { color: #aeb3d5; font-size: 14px; font-weight: 700; }
+.account-details dd { margin: 5px 0 0; overflow-wrap: anywhere; font-weight: 800; }
+.account-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.account-actions form { margin: 0; }
+.account-link, .account-logout {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border: 2px solid #f7571d;
+  border-radius: 12px;
+  background: #f7571d;
+  color: #fff;
+  font: inherit;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+.account-logout { border-color: #292b69; background: transparent; color: #32a7df; }
+.account-link:focus-visible, .account-logout:focus-visible { outline: 3px solid #47b8ec; outline-offset: 4px; }
+.account-note { font-size: 14px; line-height: 1.5; margin-top: 28px !important; }

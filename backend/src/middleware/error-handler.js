@@ -40,7 +40,7 @@ function errorHandler(error, req, res, _next) {
     })[char]);
     return res.status(normalized.status).type('html').send(`<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${formPage.title} | Nexa Play</title><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/auth.css"></head>
-<body class="auth-page"><main class="auth-main"><div class="auth-content"><h1 class="auth-heading">${formPage.title}</h1><p class="auth-intro">${escapeHtml(normalized.message)}</p><a class="auth-nav-button" href="${formPage.href}">VOLTAR E TENTAR NOVAMENTE</a></div></main></body></html>`);
+<body class="auth-page auth-error"><main class="auth-main"><div class="auth-content"><h1 class="auth-heading">${formPage.title}</h1><p class="auth-intro">${escapeHtml(normalized.message)}</p><a class="auth-nav-button" href="${formPage.href}">VOLTAR E TENTAR NOVAMENTE</a></div></main></body></html>`);
   }
 
   const body = {

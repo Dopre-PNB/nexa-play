@@ -627,3 +627,17 @@
     transition: none;
   }
 }
+
+.auth-error .auth-main {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 24px;
+}
+.auth-error .auth-content {
+  text-align: center;
+}
+.auth-error .auth-nav-button {
+  max-width: 100%;
+  white-space: normal;
+}

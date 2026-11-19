@@ -34,14 +34,14 @@ function createAuthController(env) {
       });
       const user = await authService.register(input);
       setSessionCookie(res, issueToken(user, env), env);
-      return res.redirect(303, '/nexa-quest.html');
+      return res.redirect(303, '/api/conta');
     },
 
     loginForm: async (req, res) => {
       const input = parse(loginSchema, { email: req.body.email, senha: req.body.senha });
       const user = await authService.login(input);
       setSessionCookie(res, issueToken(user, env), env);
-      return res.redirect(303, '/nexa-quest.html');
+      return res.redirect(303, '/api/conta');
     },
 
     logout: async (req, res) => {
@@ -51,6 +51,27 @@ function createAuthController(env) {
       }
       clearSessionCookie(res, env);
       return res.status(204).end();
+    },
+
+    logoutForm: async (req, res) => {
+      if (req.authUser) {
+        req.authUser.token_version += 1;
+        await req.authUser.save();
+      }
+      clearSessionCookie(res, env);
+      return res.redirect(303, '/login.html');
+    },
+
+    accountPage: (req, res) => {
+      const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+      })[char]);
+      const name = escapeHtml(req.authUser.nome_jogador);
+      const email = escapeHtml(req.authUser.email);
+      res.set('Cache-Control', 'no-store');
+      return res.type('html').send(`<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Minha conta | Nexa Play</title><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/account.css"></head>
+<body class="account-page"><main class="account-card"><a class="account-brand" href="/index.html"><img src="/assets/logo.svg" alt="Nexa Play" width="180" height="48"></a><p class="account-status">Sessão ativa</p><h1>Olá, ${name}!</h1><p>Você entrou na sua conta Nexa Play.</p><dl class="account-details"><div><dt>Nome de jogador</dt><dd>${name}</dd></div><div><dt>E-mail</dt><dd>${email}</dd></div></dl><div class="account-actions"><a class="account-link" href="/nexa-quest.html">Conhecer o Nexa Quest</a><form action="/api/forms/sair" method="post"><button class="account-logout" type="submit">Sair da conta</button></form></div><p class="account-note">As missões e o progresso estão disponíveis pela API. A experiência completa do jogo está em desenvolvimento.</p></main></body></html>`);
     },
 
     me: async (req, res) => {

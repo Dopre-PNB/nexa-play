@@ -4,7 +4,7 @@ const { progressController } = require('../controllers/progress.controller');
 const { createSharingController } = require('../controllers/sharing.controller');
 const { createCatalogController, resources } = require('../controllers/catalog.controller');
 const { adminQuestionsController } = require('../controllers/admin-questions.controller');
-const { createAuthMiddleware } = require('../middleware/auth');
+const { createAuthMiddleware, clearSessionCookie } = require('../middleware/auth');
 const { createAuthLimiter } = require('../middleware/rate-limit');
 const { sequelize } = require('../models');
 
@@ -24,6 +24,16 @@ function createApiRouter(env) {
   const catalog = createCatalogController();
   const limiter = createAuthLimiter();
 
+  function handlePageAuthentication(middleware) {
+    return (req, res, next) => middleware(req, res, (error) => {
+      if (error?.status === 401) {
+        clearSessionCookie(res, env);
+        return res.redirect(303, '/login.html');
+      }
+      return next(error);
+    });
+  }
+
   router.get('/health', async (_req, res) => {
     await sequelize.authenticate();
     return res.json({ dados: { status: 'ok', banco: 'conectado' } });
@@ -33,6 +43,8 @@ function createApiRouter(env) {
   router.post('/auth/login', limiter, authController.login);
   router.post('/forms/cadastro', limiter, authController.registerForm);
   router.post('/forms/login', limiter, authController.loginForm);
+  router.post('/forms/sair', handlePageAuthentication(auth.optionalAuthenticate), authController.logoutForm);
+  router.get('/conta', handlePageAuthentication(auth.authenticate), authController.accountPage);
   router.post('/auth/logout', auth.optionalAuthenticate, authController.logout);
   router.get('/auth/me', auth.authenticate, authController.me);
   router.patch('/usuarios/me', auth.authenticate, authController.updateMe);

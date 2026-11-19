@@ -48,7 +48,7 @@ function createApp(env = loadEnv()) {
     const sameOriginForm = origin === 'null'
       && req.get('sec-fetch-site') === 'same-origin'
       && req.method === 'POST'
-      && ['/api/forms/login', '/api/forms/cadastro'].includes(req.path)
+      && ['/api/forms/login', '/api/forms/cadastro', '/api/forms/sair'].includes(req.path)
       && req.is('application/x-www-form-urlencoded');
     if (origin && origin !== requestOrigin && !allowedOrigins.has(origin) && !sameOriginForm) {
       const { forbidden } = require('./utils/errors');

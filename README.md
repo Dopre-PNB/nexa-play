@@ -13,7 +13,7 @@ Apresentar a Nexa Play e oferecer uma base para experiências educativas com jor
 
 ## Funcionalidades
 
-No site é possível navegar pelas páginas de apresentação e criar uma conta ou entrar com e-mail e senha. Os formulários se comunicam com a API quando o site é acessado pelo servidor. A API, documentada em `/api/docs`, oferece:
+No site é possível navegar pelas páginas de apresentação, criar uma conta ou entrar com e-mail e senha e acessar a página da conta com opção de sair. Os formulários se comunicam com a API quando o site é acessado pelo servidor. A API, documentada em `/api/docs`, oferece:
 
 - Autenticação, sessão por cookie ou token e consulta ou atualização do próprio perfil.
 - Consulta ao catálogo de jogos, jornadas, missões, desafios, níveis e conquistas.
