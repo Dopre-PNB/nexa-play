@@ -72,6 +72,10 @@ Abra as páginas pelo endereço do servidor para que os formulários alcancem a 
 5. Use `GET /jornadas` para encontrar o identificador de **Primeiros passos** e `GET /jornadas/{id}/missoes` para localizar a missão **Boas-vindas**. Com o identificador da missão, execute `POST /missoes/{id}/iniciar` e depois `POST /missoes/{id}/concluir` com o corpo `{"tipo":"confirmacao","confirmada":true}`.
 6. Consulte `GET /usuarios/me/progresso` e `GET /usuarios/me/conquistas` para conferir o resultado. As missões e o progresso são demonstrados pela API.
 
+Para seguir com o quiz **Conhecendo a plataforma**, inicie a missão e use `GET /missoes/{id}/questoes`. No corpo da conclusão, envie `tipo` igual a `quiz` e uma lista `respostas` com o identificador de cada questão e o índice da opção escolhida. O primeiro índice é zero.
+
+Para testar o desafio **Desafio de boas-vindas**, encontre seu identificador em `GET /desafios`. Use as operações de início e conclusão do desafio e conclua a missão vinculada antes de finalizá-lo. A rota `GET /conteudos` informa os materiais liberados pelo nível e pelo XP. Para conferir o compartilhamento, use `POST /conquistas/{id}/compartilhar` com uma conquista obtida e abra a URL retornada.
+
 ## 5. Criar uma conta administrativa
 
 Em uma instância que você administra, execute o comando abaixo no PowerShell 7 depois de preparar o banco. Use um e-mail reservado à administração e uma senha exclusiva de 12 a 72 caracteres. A senha fica oculta durante a digitação.
