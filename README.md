@@ -1,35 +1,33 @@
 # Nexa Play
 
-O Nexa Play é um projeto de jogos e experiências digitais. Seu primeiro projeto, o **Nexa Quest**, é apresentado no site por meio de páginas institucionais, cadastro e acesso de usuários. Esta entrega reúne o front-end, uma API REST e a estrutura de banco de dados necessária para uma demonstração do sistema.
+A Nexa Play é uma plataforma de jogos e experiências educativas. O site apresenta o **Nexa Quest** e permite criar e acessar uma conta. A API REST registra o progresso dos jogadores em uma jornada demonstrativa com missões, desafios, pontos de experiência e conquistas.
 
-- **Site publicado:** [nexa-play-api-7ida.onrender.com](https://nexa-play-api-7ida.onrender.com)
-- **Repositório:** [github.com/Dopre-PNB/nexa-play](https://github.com/Dopre-PNB/nexa-play).
-- **Documentação da API:** [nexa-play-api-7ida.onrender.com/api/docs](https://nexa-play-api-7ida.onrender.com/api/docs)
-- **Estado da API e do banco:** [nexa-play-api-7ida.onrender.com/api/health](https://nexa-play-api-7ida.onrender.com/api/health)
+- **Site publicado** [Nexa Play no Render](https://nexa-play-api-7ida.onrender.com/)
+- **Código-fonte** [Dopre-PNB/nexa-play no GitHub](https://github.com/Dopre-PNB/nexa-play)
+- **API interativa** [Swagger UI](https://nexa-play-api-7ida.onrender.com/api/docs/)
+- **Estado da API e do banco** [Verificação de saúde](https://nexa-play-api-7ida.onrender.com/api/health)
 
 ## Objetivo
 
-Apresentar a Nexa Play e oferecer uma base para experiências educativas com jornadas, missões, desafios, níveis e conquistas, mantendo usuários e progresso em um banco de dados.
+Demonstrar como uma plataforma educativa pode acompanhar o progresso de cada jogador, atribuir XP ao concluir atividades e liberar conquistas e conteúdos conforme o avanço. O banco relacional armazena as contas, o catálogo do Nexa Quest e os resultados das atividades.
 
 ## Funcionalidades
 
-No site é possível navegar pelas páginas de apresentação, criar uma conta ou entrar com e-mail e senha e acessar a página da conta com opção de sair. Os formulários se comunicam com a API quando o site é acessado pelo servidor. A API, documentada em `/api/docs`, oferece:
+- **No site**, apresentação do projeto, cadastro, login com e-mail e senha, consulta à página da conta e encerramento da sessão.
+- **Na API**, autenticação, consulta e edição do perfil, catálogo de jogos e jornadas, missões de confirmação e de quiz, desafios, XP, níveis, conquistas, compartilhamentos e conteúdo desbloqueável.
+- **Na administração da API**, gerenciamento de usuários, jogos, jornadas, missões, questões, desafios, níveis, conquistas e conteúdos com uma conta administrativa.
 
-- Autenticação, sessão por cookie ou token e consulta ou atualização do próprio perfil.
-- Consulta ao catálogo de jogos, jornadas, missões, desafios, níveis e conquistas.
-- Início e conclusão de missões e desafios, cálculo de XP e níveis e desbloqueio de conquistas e conteúdos.
-- Compartilhamento de conquistas e rotas administrativas protegidas para gerenciamento do catálogo e de usuários.
-- Dados iniciais de demonstração para experimentar os recursos da API.
+Use o site para criar uma conta e entrar. No mesmo navegador, abra o Swagger UI e consulte `GET /jornadas` para localizar **Primeiros passos**. O roteiro para iniciar e concluir **Boas-vindas** e conferir o progresso está no [guia de instalação e uso](arquivos-adicionais/INSTALACAO-E-USO.md#4-usar-o-site-e-testar-o-progresso).
 
-As telas públicas apresentam o projeto e integram cadastro e login. O jogo completo e uma interface para jogar as missões ainda não estão disponíveis; as funções de progresso estão disponíveis pela API. O acesso por Google ou Apple, recuperação de senha e downloads nas lojas ainda não estão implementados. Os dados iniciais são exemplos, não conteúdo definitivo do jogo.
+As missões demonstrativas são executadas pela API. O jogo completo, o acesso por Google ou Apple, a recuperação de senha e os downloads nas lojas ainda estão pendentes.
 
 ## Tecnologias
 
-- **Front-end:** HTML5 e CSS3.
-- **Servidor:** Node.js, Express e API REST.
-- **Persistência:** Sequelize, com suporte a MySQL para desenvolvimento e PostgreSQL no Render.
-- **Segurança e validação:** bcryptjs, JSON Web Token, cookies HttpOnly, Helmet, limite de tentativas e Zod.
-- **Documentação e hospedagem:** OpenAPI/Swagger UI, GitHub e Render.
+- **Front-end** HTML5, CSS3 e JavaScript.
+- **Servidor** Node.js, Express e API REST.
+- **Banco de dados** Sequelize com MySQL ou PostgreSQL. O site publicado usa PostgreSQL.
+- **Autenticação e validação** bcryptjs, JSON Web Token, cookies HttpOnly, Helmet, express-rate-limit e Zod.
+- **Documentação e hospedagem** OpenAPI, Swagger UI, GitHub e Render.
 
 ## Estrutura do projeto
 
@@ -45,45 +43,25 @@ As telas públicas apresentam o projeto e integram cadastro e login. O jogo comp
 │   ├── scripts/                               # criação de administrador
 │   ├── .env.example                           # exemplo de configuração local
 │   └── openapi.yaml                           # especificação da API
-├── documentacao/                              # modelagem e instruções
-│   └── sql/                                   # scripts SQL
+├── documentacao/                              # modelos conceitual e lógico e DER
+├── arquivos-adicionais/                       # guia de instalação e uso
+│   └── sql/                                   # criação e dados iniciais no PostgreSQL
 └── render.yaml                                # configuração da hospedagem
 ```
 
 ## Instalação e uso
 
-É necessário ter Node.js 20 ou superior, npm e um banco MySQL ou PostgreSQL acessível. Para instruções completas de configuração, banco, execução, uso e criação de administrador, consulte [Instalação e uso](documentacao/instalacao-e-uso.md). Uma inicialização local com MySQL pode ser feita no PowerShell:
-
-```powershell
-cd backend
-npm ci
-Copy-Item .env.example .env
-```
-
-Edite `backend/.env`, informe os dados do banco e uma chave `JWT_SECRET` aleatória de pelo menos 32 caracteres. Com o MySQL em execução e o usuário com permissão para criar o banco:
-
-```powershell
-npm run db:create
-npm run db:migrate
-npm run db:seed
-npm start
-```
-
-Se o banco já existir, ignore `db:create`. Acesse [http://localhost:3000](http://localhost:3000) e [http://localhost:3000/api/docs](http://localhost:3000/api/docs). Os comandos devem ser executados na pasta `backend`. Não envie o arquivo `.env` ao repositório.
+Para executar localmente, use Node.js 20 ou superior, npm e um servidor MySQL ou PostgreSQL. O guia explica como configurar o ambiente, criar o banco, carregar os dados iniciais, iniciar a aplicação e testar o cadastro e o progresso. [Guia de instalação e uso](arquivos-adicionais/INSTALACAO-E-USO.md).
 
 ## Modelagem e banco de dados
 
-Os documentos e scripts estão organizados na pasta `documentacao`:
+Uma empresa publica jogos. Cada jogo organiza jornadas, missões e desafios. As relações entre jogadores e atividades registram o progresso, a participação nos desafios e as conquistas obtidas. O sistema usa o XP acumulado para calcular o nível do jogador e liberar conteúdos.
 
 - [Modelagem conceitual](documentacao/modelagem-conceitual.md).
 - [Modelagem lógica](documentacao/modelagem-logica.md).
 - [Diagrama entidade-relacionamento (DER)](documentacao/DER.md).
-- [Scripts SQL de criação e inserção](documentacao/sql/).
-
-A aplicação também contém migrações e dados iniciais versionados em `backend/migrations/` e `backend/seeders/`; escolha um método de criação ao preparar o banco para evitar estruturas duplicadas.
-
-As entidades abrangem empresas e jogos; jogadores e seus perfis; jornadas, missões e questões; progresso e desafios; níveis, conquistas e seus compartilhamentos; e conteúdos desbloqueáveis. A modelagem registra os relacionamentos e as chaves entre elas.
+- [Scripts SQL para criar o banco e as tabelas e inserir dados iniciais](arquivos-adicionais/sql/README.md).
 
 ## Hospedagem de demonstração
 
-O `render.yaml` configura um serviço web e um PostgreSQL no plano gratuito. O serviço pode dormir depois de um período sem acessos e demorar para responder ao retornar. O PostgreSQL gratuito expira após 30 dias, portanto os dados da demonstração não devem ser tratados como permanentes. Consulte os [limites do plano gratuito do Render](https://render.com/docs/free).
+O [`render.yaml`](render.yaml) configura o serviço web e o PostgreSQL. No plano gratuito, o primeiro acesso após um período de inatividade pode demorar cerca de um minuto, e o banco expira após 30 dias da criação. [Limites do plano gratuito do Render](https://render.com/docs/free).

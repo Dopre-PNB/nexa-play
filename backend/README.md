@@ -1,5 +1,5 @@
 # Backend do Nexa Play
 
-O backend em Node.js e Express serve o site e expõe a API. As instruções atuais de configuração, instalação e uso estão em [instalação e uso](../documentacao/instalacao-e-uso.md); a visão geral está no [README principal](../README.md).
+O backend em Node.js e Express serve o site e expõe a API. Use o [guia de instalação e uso](../arquivos-adicionais/INSTALACAO-E-USO.md) para configurar o banco, instalar as dependências e testar a aplicação. A visão geral está no [README principal](../README.md).
 
-A documentação interativa está disponível em `/api/docs` quando o servidor estiver em execução. O endereço publicado é https://nexa-play-api-7ida.onrender.com/api/docs.
+A documentação interativa está em `/api/docs`. [Swagger UI no site publicado](https://nexa-play-api-7ida.onrender.com/api/docs/).

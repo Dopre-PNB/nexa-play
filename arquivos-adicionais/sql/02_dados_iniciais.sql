@@ -1,7 +1,10 @@
--- PostgreSQL: dados demonstrativos equivalentes a backend/seeders/20261112000100-starter-content.js.
--- Não cria usuários ou senhas. Registros existentes não são atualizados nem removidos.
--- Execute após criar as tabelas. Escolha um banco de demonstração antes de executar.
+-- PostgreSQL. Dados demonstrativos de backend/seeders/20261112000100-starter-content.js.
+-- Execute no banco de demonstração após criar as tabelas. As contas são criadas pela aplicação.
 BEGIN;
+SET LOCAL search_path TO public;
+SET LOCAL client_encoding TO 'UTF8';
+SET LOCAL TIME ZONE 'UTC';
+
 DO $$
 DECLARE
  v_empresa INTEGER;

@@ -1,6 +1,8 @@
 # Modelagem lógica — Nexa Play
 
-Baseada na migração `backend/migrations/20261112000100-create-nexa-schema.js`. PK = chave primária; FK = chave estrangeira; UQ = único. Todos os campos são obrigatórios salvo indicação `?`. `texto(n)` representa texto de até n caracteres; `data` representa data e hora. IDs são inteiros autoincrementais, exceto os da tabela associativa `usuarios_conquistas`. Todas as tabelas incluem `criado_em` e `atualizado_em` obrigatórios.
+O modelo descreve as 14 tabelas de negócio da [migração inicial do Sequelize](../backend/migrations/20261112000100-create-nexa-schema.js).
+
+**PK** indica chave primária, **FK** indica chave estrangeira e **UQ** indica unicidade. Todos os campos são obrigatórios salvo indicação `?`. `texto(n)` representa texto de até n caracteres. `data` representa data e hora. As chaves primárias simples são inteiros autoincrementais. Todas as tabelas incluem `criado_em` e `atualizado_em` obrigatórios.
 
 | Tabela | Campos além de `criado_em` e `atualizado_em` | Restrições |
 |---|---|---|
@@ -19,6 +21,31 @@ Baseada na migração `backend/migrations/20261112000100-create-nexa-schema.js`.
 | `conteudos` | `id_conteudo` inteiro PK; `id_jogo` inteiro FK; `slug` texto(100); `titulo` texto(120); `resumo` texto(500)?; `tipo` enum; `corpo` texto?; `url` texto(2000)?; `nivel_minimo` inteiro; `xp_minimo` inteiro; `status` enum | FK → `jogos.id_jogo`; UQ (`id_jogo`, `slug`); tipo: artigo/video/bonus; status: ativo/inativo. |
 | `compartilhamentos` | `id_compartilhamento` inteiro PK; `id_usuario` inteiro FK; `id_conquista` inteiro FK; `token` texto(64); `expira_em` data?; `revogado_em` data? | FK → `usuarios.id_usuario`, `conquistas.id_conquista`; UQ `token`. |
 
-Todas as chaves estrangeiras usam atualização em cascata. A exclusão é em cascata nas referências de questões para missões, progresso para usuários, participações para usuários e desafios, usuários-conquistas para usuários e conquistas, e compartilhamentos para usuários e conquistas. As demais usam restrição de exclusão. Outros índices não únicos são definidos na migração.
+## Valores iniciais no banco
 
-Os tipos são descritos de forma lógica: o PostgreSQL do Render usa `integer` e `smallint` com sinal, enquanto o MySQL aceita os modificadores `UNSIGNED` usados pelo Sequelize. As regras de negócio e de validação da API continuam necessárias. O Sequelize mantém também a tabela técnica `SequelizeMeta` para controle de migrações.
+- Jogos, usuários, conquistas e conteúdos começam com situação `ativo`. Usuários recebem o papel `jogador` e `token_version` igual a `0`.
+- Jornadas, missões e desafios começam em `rascunho`. Ordem e nível mínimo de jornadas e missões começam em `1`. Na missão, o tipo inicial é `confirmacao` e a nota mínima é `100`.
+- Progresso de missão e participação em desafio começam em `iniciada`. O XP obtido, a recompensa de missão e o bônus de desafio têm padrão `0`. Conteúdos têm nível mínimo `1` e XP mínimo `0`.
+
+## Integridade e índices
+
+Todas as chaves estrangeiras atualizam em cascata. A exclusão física propaga de missões para questões, de usuários para progresso de missões, de usuários e desafios para participações e de usuários e conquistas para concessões de conquista e compartilhamentos. As demais referências restringem a exclusão. Quando a API exclui uma conta, preenche `excluido_em` e preserva o registro. A autenticação usa o campo `token_version` para invalidar tokens de sessão.
+
+As restrições de unicidade da tabela acima são implementadas por chaves primárias e índices únicos. A migração inclui estes índices adicionais, além dos índices implícitos do banco:
+
+| Tabela | Campos do índice, na ordem |
+| --- | --- |
+| `jogos` | `id_empresa` |
+| `usuarios` | `papel`, `status` |
+| `jornadas` | `id_jogo`, `status`, `ordem_jornada` |
+| `missoes` | `id_jornada`, `status`, `ordem_missao` |
+| `progresso_usuarios` | `id_usuario`, `status` |
+| `desafios` | `status`, `inicia_em`, `termina_em` |
+| `conquistas` | `criterio`, `meta`, `status` |
+| `usuarios_conquistas` | `id_conquista`, `conquistada_em` |
+| `conteudos` | `id_jogo`, `status`, `nivel_minimo` |
+| `compartilhamentos` | `id_usuario`, `id_conquista` |
+
+O PostgreSQL do Render usa `integer` e `smallint` com sinal, enquanto o MySQL aceita os modificadores `UNSIGNED` do Sequelize. O Sequelize CLI usa `SequelizeMeta` para registrar as migrações aplicadas.
+
+[Modelo conceitual](modelagem-conceitual.md) · [DER](DER.md)

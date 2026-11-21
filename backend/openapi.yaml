@@ -16,7 +16,7 @@ paths:
   /health:
     get:
       tags: [Saúde]
-      summary: Verifica a conexão com a API e o MySQL
+      summary: Verifica a conexão da API com o banco de dados
       responses:
         '200':
           description: Serviço disponível

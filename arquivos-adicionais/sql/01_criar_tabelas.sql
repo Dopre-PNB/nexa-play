@@ -1,6 +1,8 @@
--- PostgreSQL: execute somente em um banco vazio. Não recria nem apaga dados.
--- Os nomes dos tipos enum acompanham os criados pelo Sequelize.
+-- PostgreSQL. Execute em um banco vazio com permissão de criação no esquema public.
+-- Estrutura da migração backend/migrations/20261112000100-create-nexa-schema.js.
 BEGIN;
+SET LOCAL search_path TO public;
+
 CREATE TYPE "enum_jogos_status" AS ENUM ('ativo','inativo');
 CREATE TYPE "enum_usuarios_papel" AS ENUM ('jogador','admin');
 CREATE TYPE "enum_usuarios_status" AS ENUM ('ativo','suspenso');

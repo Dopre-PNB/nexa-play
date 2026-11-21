@@ -1,125 +1,159 @@
 # Diagrama Entidade-Relacionamento (DER)
 
-Diagrama das tabelas de negócio da migração inicial. A notação `||` indica exatamente um; `o{` indica zero ou muitos. PK representa chave primária e FK chave estrangeira. Os atributos completos, tipos, índices e restrições estão em [modelagem-logica.md](modelagem-logica.md).
+O diagrama representa as 14 tabelas de negócio. Cada ligação indica que um registro da tabela à esquerda pode ter zero ou muitos registros à direita e que cada registro à direita aponta para exatamente um à esquerda. A linha contínua indica que a referência integra a chave primária da tabela dependente.
 
 ```mermaid
 erDiagram
-    EMPRESAS ||--o{ JOGOS : possui
-    JOGOS ||--o{ JORNADAS : organiza
-    JORNADAS ||--o{ MISSOES : contem
-    MISSOES ||--o{ QUESTOES_MISSAO : possui
-    USUARIOS ||--o{ PROGRESSO_USUARIOS : registra
-    MISSOES ||--o{ PROGRESSO_USUARIOS : recebe
-    JOGOS ||--o{ DESAFIOS : possui
-    MISSOES ||--o{ DESAFIOS : compoe
-    USUARIOS ||--o{ PARTICIPACOES_DESAFIO : realiza
-    DESAFIOS ||--o{ PARTICIPACOES_DESAFIO : recebe
-    USUARIOS ||--o{ USUARIOS_CONQUISTAS : conquista
-    CONQUISTAS ||--o{ USUARIOS_CONQUISTAS : obtida
-    JOGOS ||--o{ CONTEUDOS : possui
-    USUARIOS ||--o{ COMPARTILHAMENTOS : cria
-    CONQUISTAS ||--o{ COMPARTILHAMENTOS : divulgada
+    empresas ||..o{ jogos : publica
+    jogos ||..o{ jornadas : organiza
+    jornadas ||..o{ missoes : contem
+    missoes ||..o{ questoes_missao : apresenta
+    usuarios ||..o{ progresso_usuarios : registra
+    missoes ||..o{ progresso_usuarios : recebe
+    jogos ||..o{ desafios : oferece
+    missoes ||..o{ desafios : integra
+    usuarios ||..o{ participacoes_desafio : realiza
+    desafios ||..o{ participacoes_desafio : recebe
+    usuarios ||--o{ usuarios_conquistas : obtem
+    conquistas ||--o{ usuarios_conquistas : concedida
+    jogos ||..o{ conteudos : oferece
+    usuarios ||..o{ compartilhamentos : cria
+    conquistas ||..o{ compartilhamentos : divulgada
 
-    EMPRESAS {
+    empresas {
         int id_empresa PK
-        string nome
+        varchar nome
+        text descricao
+        smallint ano_fundacao
+        varchar slogan
     }
-    JOGOS {
+    jogos {
         int id_jogo PK
         int id_empresa FK
-        string slug
-        string nome
-        string status
+        varchar slug UK
+        varchar nome
+        text descricao
+        varchar genero
+        varchar plataforma
+        enum status
     }
-    USUARIOS {
+    usuarios {
         int id_usuario PK
-        string nome_jogador
-        string email
-        string senha_hash
-        string papel
-        string status
+        varchar nome_jogador
+        varchar email UK
+        varchar senha_hash
+        enum papel
+        enum status
+        int token_version
+        datetime excluido_em
     }
-    JORNADAS {
+    jornadas {
         int id_jornada PK
         int id_jogo FK
-        string slug
-        string titulo
+        varchar slug
+        varchar titulo
+        text descricao
+        int ordem_jornada
         int nivel_minimo
-        string status
+        enum status
     }
-    MISSOES {
+    missoes {
         int id_missao PK
         int id_jornada FK
-        string slug
-        string titulo
-        string tipo
+        varchar slug
+        varchar titulo
+        text descricao
+        int ordem_missao
+        enum tipo
+        decimal nota_minima
         int xp_recompensa
-        string status
+        int nivel_minimo
+        enum status
     }
-    QUESTOES_MISSAO {
+    questoes_missao {
         int id_questao PK
         int id_missao FK
-        string enunciado
+        varchar enunciado
         json opcoes
-        int indice_resposta
+        smallint indice_resposta
         int ordem_questao
     }
-    PROGRESSO_USUARIOS {
+    progresso_usuarios {
         int id_progresso PK
         int id_usuario FK
         int id_missao FK
-        string status
+        enum status
+        datetime iniciada_em
+        datetime concluida_em
         int xp_obtido
     }
-    DESAFIOS {
+    desafios {
         int id_desafio PK
         int id_jogo FK
         int id_missao FK
-        string titulo
+        varchar slug
+        varchar titulo
+        text descricao
         int xp_bonus
-        string status
+        datetime inicia_em
+        datetime termina_em
+        enum status
     }
-    PARTICIPACOES_DESAFIO {
+    participacoes_desafio {
         int id_participacao PK
         int id_usuario FK
         int id_desafio FK
-        string status
+        enum status
+        datetime iniciada_em
+        datetime concluida_em
         int xp_obtido
     }
-    NIVEIS {
+    niveis {
         int id_nivel PK
-        int numero_nivel
-        string titulo
-        int xp_minimo
+        int numero_nivel UK
+        varchar titulo
+        int xp_minimo UK
     }
-    CONQUISTAS {
+    conquistas {
         int id_conquista PK
-        string codigo
-        string titulo
-        string criterio
+        varchar codigo UK
+        varchar titulo
+        varchar descricao
+        enum criterio
         int meta
+        varchar icone
+        enum status
     }
-    USUARIOS_CONQUISTAS {
-        int id_usuario PK,FK
-        int id_conquista PK,FK
+    usuarios_conquistas {
+        int id_usuario PK, FK
+        int id_conquista PK, FK
         datetime conquistada_em
     }
-    CONTEUDOS {
+    conteudos {
         int id_conteudo PK
         int id_jogo FK
-        string titulo
-        string tipo
+        varchar slug
+        varchar titulo
+        varchar resumo
+        enum tipo
+        text corpo
+        varchar url
         int nivel_minimo
         int xp_minimo
+        enum status
     }
-    COMPARTILHAMENTOS {
+    compartilhamentos {
         int id_compartilhamento PK
         int id_usuario FK
         int id_conquista FK
-        string token
+        varchar token UK
         datetime expira_em
         datetime revogado_em
     }
 ```
 
-`NIVEIS` é independente no esquema físico: os níveis são calculados usando os limites de XP, sem chave estrangeira para usuários.
+**PK** indica chave primária, **FK** indica chave estrangeira e **UK** indica unicidade em uma única coluna. Em `usuarios_conquistas`, as duas colunas marcadas como PK formam uma chave composta. Todas as tabelas também registram `criado_em` e `atualizado_em`.
+
+A aplicação consulta `niveis` por XP, por isso a tabela aparece isolada. Os compartilhamentos usam chaves separadas para o usuário e a conquista. A validação da posse da conquista fica na API.
+
+[Modelo conceitual](modelagem-conceitual.md) · [Modelo lógico com campos opcionais, chaves e índices compostos](modelagem-logica.md)
